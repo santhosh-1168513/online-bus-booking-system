@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Online Bus Ticket Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-bus-alt"></i>
+                <span>BusBooking</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#routes" class="nav-link">Routes</a></li>
+                <li><a href="managebooking.html" class="nav-link">Manage Booking</a></li>
+                <li><a href="#" class="nav-link">Offers</a></li>
+                <li><a href="#" class="nav-link">Help</a></li>
+                <div class="nav-cta">
+                    <a href="#" class="btn-outline">Login</a>
+                    <a href="#" class="btn-primary">Sign Up</a>
+                </div>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="bus-animation">
+            <svg width="140" height="70" viewBox="0 0 140 70" fill="none">
+                <rect x="10" y="15" width="120" height="40" rx="10" fill="red" opacity="0.9"/>
+                <rect x="18" y="22" width="22" height="18" rx="3" fill="#667eea"/>
+                <rect x="45" y="22" width="22" height="18" rx="3" fill="#667eea"/>
+                <rect x="72" y="22" width="22" height="18" rx="3" fill="#667eea"/>
+                <rect x="99" y="22" width="22" height="18" rx="3" fill="#667eea"/>
+                <circle cx="35" cy="58" r="9" fill="#333"/>
+                <circle cx="35" cy="58" r="5" fill="#666"/>
+                <circle cx="105" cy="58" r="9" fill="#333"/>
+                <circle cx="105" cy="58" r="5" fill="#666"/>
+            </svg>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i> India's Most Trusted Bus Booking Platform
+                </div>
+                <h1 class="hero-title">Book Bus Tickets<br>Anytime, Anywhere</h1>
+                <p class="hero-subtitle">Travel safely and comfortably with the best bus operators across India</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Safe & Secure</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Instant Booking</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-wrapper">
+        <div class="container">
+            <div class="search-card">
+                <div class="search-tabs">
+                    <button class="search-tab active">
+                        <i class="fas fa-bus"></i> Bus Tickets
+                    </button>
+                    <button class="search-tab">
+                        <i class="fas fa-truck"></i> Cargo Booking
+                    </button>
+                </div>
+                <form class="search-form">
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label">From</label>
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <input type="text" class="form-input" placeholder="Departure City" id="fromCity" list="cities">
+                        <button type="button" class="swap-btn" onclick="swapCities()">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">To</label>
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <input type="text" class="form-input" placeholder="Arrival City" id="toCity" list="cities">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Journey Date</label>
+                        <i class="fas fa-calendar-alt input-icon"></i>
+                        <input type="date" class="form-input" id="journeyDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Return Date (Optional)</label>
+                        <i class="fas fa-calendar-alt input-icon"></i>
+                        <input type="date" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </form>
+                <datalist id="cities">
+                    <option value="Mumbai">
+                    <option value="Delhi">
+                    <option value="Bangalore">
+                    <option value="Hyderabad">
+                    <option value="Chennai">
+                    <option value="Pune">
+                    <option value="Jaipur">
+                    <option value="Kolkata">
+                </datalist>
+            </div>
+
+            <!-- Offer Banner -->
+            <div class="offer-banner">
+                <div class="offer-content">
+                    <i class="fas fa-gift offer-icon"></i>
+                    <div class="offer-text">
+                        <h3>Special Offer!</h3>
+                        <p>Get flat 15% OFF on your first booking</p>
+                    </div>
+                </div>
+                <div class="offer-code">
+                    Use Code: <strong>FIRST15</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Routes -->
+    <section id="routes">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Popular Routes</span>
+                <h2 class="section-title">Trending Bus Routes</h2>
+                <p class="section-subtitle">Choose from our most booked destinations and travel with confidence</p>
+            </div>
+            <div class="routes-slider">
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Mumbai</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Pune</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>25+</strong> Operators</div>
+                        <div class="route-price">₹450 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Delhi</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Jaipur</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>30+</strong> Operators</div>
+                        <div class="route-price">₹650 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Bangalore</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Chennai</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>20+</strong> Operators</div>
+                        <div class="route-price">₹800 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Hyderabad</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Vijayawada</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>18+</strong> Operators</div>
+                        <div class="route-price">₹550 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Kolkata</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Siliguri</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>15+</strong> Operators</div>
+                        <div class="route-price">₹950 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Ahmedabad</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Udaipur</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>12+</strong> Operators</div>
+                        <div class="route-price">₹720 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Ahmedabad</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Udaipur</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>12+</strong> Operators</div>
+                        <div class="route-price">₹720 <span>onwards</span></div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-cities">
+                        <div class="city">Ahmedabad</div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city">Udaipur</div>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-operators"><strong>12+</strong> Operators</div>
+                        <div class="route-price">₹720 <span>onwards</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Book -->
+    <section style="background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Easy Booking</span>
+                <h2 class="section-title">How to Book Your Tickets</h2>
+                <p class="section-subtitle">Follow these simple steps and book your bus tickets in minutes</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-search-location step-icon"></i>
+                    <h3 class="step-title">Search Your Route</h3>
+                    <p class="step-description">Enter your departure and arrival cities along with your travel date. Our system will show you all available buses instantly.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-filter step-icon"></i>
+                    <h3 class="step-title">Choose Your Bus</h3>
+                    <p class="step-description">Filter buses by departure time, bus type, price, and amenities. Compare and select the one that suits your preferences.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-credit-card step-icon"></i>
+                    <h3 class="step-title">Book & Pay Securely</h3>
+                    <p class="step-description">Select your seat, fill in passenger details, and make a secure payment. Get instant confirmation via SMS and email.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Premium Facilities</span>
+                <h2 class="section-title">Travel in Comfort</h2>
+                <p class="section-subtitle">Experience world-class amenities on your journey</p>
+            </div>
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-wifi amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">Free Wi-Fi</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-snowflake amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">AC Buses</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-plug amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">Charging Points</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-bed amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">Sleeper Coaches</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-couch amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">Seater Coaches</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-satellite-dish amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">GPS Tracking</div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon-wrapper">
+                        <i class="fas fa-water amenity-icon"></i>
+                    </div>
+                    <div class="amenity-label">Water Bottle</div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section style="background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Your Trusted Travel Partner</h2>
+                <p class="section-subtitle">Experience the best bus booking service with unmatched benefits</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">100% Secure Payments</h3>
+                    <p class="feature-description">Your transactions are protected with bank-grade encryption and PCI DSS compliance for complete peace of mind.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Live Bus Tracking</h3>
+                    <p class="feature-description">Track your bus in real-time with GPS technology. Know exactly where your bus is at any moment during your journey.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Cancellation & Refunds</h3>
+                    <p class="feature-description">Cancel your booking hassle-free with our transparent refund policy. Get your money back quickly and easily.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-headphones-alt"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Customer Support</h3>
+                    <p class="feature-description">Our dedicated support team is available round the clock to assist you with any queries or concerns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="feature-title">Verified Operators</h3>
+                    <p class="feature-description">Travel only with trusted and verified bus operators who maintain the highest standards of safety and service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3 class="feature-title">Best Price Guarantee</h3>
+                    <p class="feature-description">Get the best deals and exclusive discounts on bus tickets. Save more on every booking you make.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Testimonials</span>
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Don't just take our word for it - hear from our happy travelers</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Amazing service! Booked my tickets in just 2 minutes. The bus was comfortable and reached on time. Highly recommended for hassle-free travel.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RP</div>
+                        <div class="author-info">
+                            <h4>Raj Patel</h4>
+                            <p>Mumbai → Pune</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Best bus booking platform! The live tracking feature is fantastic. Customer support was very helpful when I needed to modify my booking.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PS</div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Delhi → Jaipur</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-text">Great experience overall. The seat selection was easy, payment was secure, and I got instant confirmation. Will definitely use again for my travels.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AK</div>
+                        <div class="author-info">
+                            <h4>Amit Kumar</h4>
+                            <p>Bangalore → Chennai</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Journey Today!</h2>
+                <p>Download our app and get exclusive deals on bus bookings</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-white">
+                        <i class="fab fa-google-play"></i>
+                        Download on Play Store
+                    </a>
+                    <a href="#" class="btn-white">
+                        <i class="fab fa-app-store-ios"></i>
+                        Download on App Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+                    <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        
+    </script>
+</body>
+</html>

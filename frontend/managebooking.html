@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Booking - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bus-alt"></i>
+                <span>BusBooking</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="managebooking.html" class="nav-link active">Manage Booking</a></li>
+                <li><a href="#" class="nav-link">About Us</a></li>
+                <li><a href="#" class="nav-link">Contact/Login</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Manage Booking</span>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <h1>Manage Booking</h1>
+            <p>View, download, cancel, or reschedule your bus ticket easily</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Retrieve Booking Card -->
+        <div class="booking-card">
+            <div class="card-header">
+                <h2 class="card-title">Retrieve Your Booking</h2>
+                <p class="card-subtitle">Enter the details used during booking to view your ticket information</p>
+            </div>
+
+            <div class="helper-text">
+                <i class="fas fa-info-circle"></i> You can find your Ticket ID in the SMS or email sent after booking
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-ticket-alt"></i> Ticket ID
+                        </label>
+                        <input type="text" class="form-input" id="ticketId" placeholder="Enter Ticket ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-mobile-alt"></i> Mobile Number / Email
+                        </label>
+                        <input type="text" class="form-input" id="contact" placeholder="Enter Mobile or Email" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-search"></i>
+                    View Booking
+                </button>
+            </form>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <i class="fas fa-search-minus empty-icon"></i>
+            <h3 class="empty-title">No Booking Found</h3>
+            <p class="empty-text">We couldn't find any booking with the provided details.<br>Please check your Ticket ID and contact information.</p>
+            <a href="index.html" class="btn-secondary">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Booking Details Section -->
+        <div class="booking-details" id="bookingDetails">
+            <div class="details-grid">
+                <!-- Journey Information -->
+                <div class="journey-info">
+                    <h3 class="section-title">
+                        <i class="fas fa-route"></i>
+                        Journey Information
+                    </h3>
+
+                    <div class="route-display">
+                        <div class="city-info">
+                            <div class="city-name">Mumbai</div>
+                            <div class="city-time">06:00 AM</div>
+                        </div>
+                        <i class="fas fa-long-arrow-alt-right route-arrow"></i>
+                        <div class="city-info">
+                            <div class="city-name">Pune</div>
+                            <div class="city-time">09:30 AM</div>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Journey Date</span>
+                        <span class="info-value">25 January 2026</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bus Operator</span>
+                        <span class="info-value">VRL Travels</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bus Type</span>
+                        <span class="info-value">AC Sleeper (2+1)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bus Number</span>
+                        <span class="info-value">MH-12-AB-1234</span>
+                    </div>
+
+                    <h3 class="section-title" style="margin-top: 2rem;">
+                        <i class="fas fa-user"></i>
+                        Passenger Details
+                    </h3>
+
+                    <div class="info-row">
+                        <span class="info-label">Passenger Name</span>
+                        <span class="info-value">Rajesh Kumar</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Seat Number</span>
+                        <span class="info-value">L5, L6</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Mobile Number</span>
+                        <span class="info-value">+91 98765 43210</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Booking Status</span>
+                        <span class="info-value">
+                            <span class="status-badge status-confirmed">
+                                <i class="fas fa-check-circle"></i> Confirmed
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Payment Summary -->
+                    <div class="payment-summary">
+                        <h3 class="section-title">
+                            <i class="fas fa-receipt"></i>
+                            Payment Summary
+                        </h3>
+                        <div class="price-row">
+                            <span>Ticket Price (2 seats)</span>
+                            <span>₹900</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Convenience Fee</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="price-row">
+                            <span>GST (5%)</span>
+                            <span>₹47.50</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total Amount Paid</span>
+                            <span>₹997.50</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <div class="info-row">
+                                <span class="info-label">Payment Method</span>
+                                <span class="info-value">UPI</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Transaction ID</span>
+                                <span class="info-value">TXN123456789</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Actions -->
+                    <div class="ticket-actions">
+                        <h3 class="section-title">
+                            <i class="fas fa-cog"></i>
+                            Quick Actions
+                        </h3>
+                        <button class="action-btn btn-download" onclick="downloadTicket()">
+                            <i class="fas fa-download"></i>
+                            Download Ticket
+                        </button>
+                        <button class="action-btn btn-reschedule" onclick="rescheduleBooking()">
+                            <i class="fas fa-calendar-alt"></i>
+                            Reschedule Journey
+                        </button>
+                        <button class="action-btn btn-cancel" onclick="openCancelModal()">
+                            <i class="fas fa-times-circle"></i>
+                            Cancel Booking
+                        </button>
+
+                        <div class="paperless-note">
+                            <i class="fas fa-leaf"></i>
+                            <span>This is a paperless M-Ticket. No printout required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 class="card-title" style="margin-bottom: 2rem;">
+                <i class="fas fa-question-circle" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                Frequently Asked Questions
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I cancel my booking?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To cancel your booking, click on the "Cancel Booking" button above. You'll see the cancellation charges and refund amount before confirming. Cancellation charges vary based on the time remaining before departure. The refund will be processed to your original payment method within 5-7 business days.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>When will I receive my refund?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Refunds are typically processed within 5-7 business days after cancellation approval. The amount will be credited to your original payment method. For UPI and bank transfers, it may take 3-5 business days. For credit/debit cards, it may take 7-10 business days depending on your bank.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I download my ticket?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Click on the "Download Ticket" button to get your e-ticket as a PDF. This is a paperless M-Ticket which you can show on your mobile phone during boarding. You don't need to take a printout. Make sure to carry a valid ID proof along with the ticket.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I reschedule my journey?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can reschedule your journey by clicking the "Reschedule Journey" button. Rescheduling charges may apply depending on the operator's policy and time remaining before departure. You can change your travel date subject to seat availability on the new date.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What documents do I need to carry during travel?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You need to carry your e-ticket (either printed or on your mobile) and a valid government-issued photo ID proof such as Aadhar Card, Voter ID, Passport, or Driving License. The name on the ID should match the passenger name on the ticket.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancellation Modal -->
+    <div class="modal" id="cancelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+                    Cancel Booking
+                </h3>
+                <button class="modal-close" onclick="closeCancelModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="cancellation-details">
+                <h4 style="margin-bottom: 1rem; color: var(--dark);">Cancellation Summary</h4>
+                <div class="refund-row">
+                    <span>Ticket Amount</span>
+                    <span>₹997.50</span>
+                </div>
+                <div class="refund-row">
+                    <span style="color: var(--danger);">Cancellation Charges (15%)</span>
+                    <span style="color: var(--danger);">- ₹149.63</span>
+                </div>
+                <div class="refund-row highlight">
+                    <span>Refund Amount</span>
+                    <span>₹847.87</span>
+                </div>
+            </div>
+
+            <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                The refund will be processed to your original payment method within 5-7 business days.
+            </p>
+
+            <p style="color: var(--dark); font-weight: 600; margin-bottom: 1.5rem;">
+                Are you sure you want to cancel this booking?
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn-modal btn-confirm-cancel" onclick="confirmCancellation()">
+                    <i class="fas fa-check"></i> Yes, Cancel Booking
+                </button>
+                <button class="btn-modal btn-modal-close" onclick="closeCancelModal()">
+                    <i class="fas fa-times"></i> No, Keep Booking
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+                    <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>
+    
+         // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const ticketId = document.getElementById('ticketId').value;
+            const contact = document.getElementById('contact').value;
+
+            // Simulate booking retrieval
+            if (ticketId && contact) {
+                // Show booking details
+                document.getElementById('bookingDetails').classList.add('active');
+                document.getElementById('emptyState').classList.remove('active');
+                
+                // Smooth scroll to details
+                setTimeout(() => {
+                    document.getElementById('bookingDetails').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            } else {
+                // Show empty state
+                document.getElementById('bookingDetails').classList.remove('active');
+                document.getElementById('emptyState').classList.add('active');
+                
+                // Smooth scroll to empty state
+                setTimeout(() => {
+                    document.getElementById('emptyState').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 100);
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Download Ticket
+        function downloadTicket() {
+            // Simulate ticket download
+            alert('Downloading your e-ticket...\n\nYour ticket has been downloaded successfully!\n\nTicket ID: BUS123456789\nRoute: Mumbai → Pune\nDate: 25 Jan 2026\n\nThis is a paperless M-Ticket. Show this on your mobile during boarding.');
+        }
+
+        // Reschedule Booking
+        function rescheduleBooking() {
+            alert('Reschedule Feature\n\nYou can reschedule your journey to a different date.\n\nRescheduling charges: ₹100 + fare difference (if any)\n\nThis feature will redirect you to the reschedule page.');
+        }
+
+        // Open Cancel Modal
+        function openCancelModal() {
+            document.getElementById('cancelModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Cancel Modal
+        function closeCancelModal() {
+            document.getElementById('cancelModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Confirm Cancellation
+        function confirmCancellation() {
+            // Simulate cancellation
+            alert('Booking Cancelled Successfully!\n\nRefund Amount: ₹847.87\n\nThe refund will be processed to your original payment method within 5-7 business days.\n\nCancellation ID: CAN123456789');
+            
+            // Update booking status
+            const statusBadge = document.querySelector('.status-badge');
+            statusBadge.className = 'status-badge status-cancelled';
+            statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> Cancelled';
+            
+            // Disable action buttons
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+            
+            closeCancelModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('cancelModal').addEventListener('click', (e) => {
+            if (e.target.id === 'cancelModal') {
+                closeCancelModal();
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Auto-focus on ticket ID input
+        document.getElementById('ticketId').focus();
+</script>
+</body>
+</html>
