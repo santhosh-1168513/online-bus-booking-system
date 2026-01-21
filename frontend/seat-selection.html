@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E40AF;
+            --action-orange: #FF6B35;
+            --success: #10B981;
+            --danger: #EF4444;
+            --dark: #1F2937;
+            --gray: #6B7280;
+            --light: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 65% 35%;
+            gap: 2rem;
+        }
+
+        /* Seat Layout Section */
+        .seat-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Deck Tabs */
+        .deck-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .deck-tab {
+            padding: 0.75rem 2rem;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .deck-tab.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        /* Seat Legend */
+        .seat-legend {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .legend-box.available {
+            background: var(--white);
+            border-color: var(--border);
+        }
+
+        .legend-box.selected {
+            background: var(--success);
+            color: var(--white);
+            border-color: var(--success);
+        }
+
+        .legend-box.booked {
+            background: var(--gray);
+            color: var(--white);
+            border-color: var(--gray);
+        }
+
+        .legend-box.ladies {
+            background: #FFC0CB;
+            border-color: #FF69B4;
+        }
+
+        /* Seat Layout Grid */
+        .seat-layout {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bus-front {
+            width: 100%;
+            max-width: 500px;
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 45px);
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .seat {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--white);
+            user-select: none;
+        }
+
+        .seat:hover:not(.booked) {
+            transform: scale(1.1);
+            border-color: var(--primary-blue);
+        }
+
+        .seat.selected {
+            background: var(--success);
+            color: var(--white);
+            border-color: var(--success);
+        }
+
+        .seat.booked {
+            background: var(--gray);
+            color: var(--white);
+            border-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .seat.ladies {
+            background: #FFC0CB;
+            border-color: #FF69B4;
+        }
+
+        .seat.ladies.selected {
+            background: #FF1493;
+            border-color: #FF1493;
+            color: var(--white);
+        }
+
+        .seat.spacer {
+            visibility: hidden;
+        }
+
+        /* Bus Details Panel */
+        .details-panel {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .details-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .bus-operator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .operator-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+        .operator-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .operator-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: var(--success);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .journey-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .journey-point {
+            text-align: center;
+        }
+
+        .journey-time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .journey-city {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .journey-arrow {
+            font-size: 1.5rem;
+            color: var(--action-orange);
+        }
+
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .amenity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--light);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .amenity i {
+            color: var(--primary-blue);
+        }
+
+        /* Boarding Points */
+        .points-section {
+            margin-bottom: 1rem;
+        }
+
+        .points-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .points-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .points-list.expanded {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .point-item {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .point-item:hover {
+            border-color: var(--primary-blue);
+            background: rgba(30, 64, 175, 0.05);
+        }
+
+        .point-item.selected {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .point-time {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .point-name {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Price Summary */
+        .price-summary {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(59, 130, 246, 0.05));
+            border: 2px solid var(--primary-blue);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .summary-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .selected-seats {
+            margin-bottom: 1rem;
+        }
+
+        .seat-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--success);
+            color: var(--white);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .price-row.total {
+            border-top: 2px solid var(--primary-blue);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+        }
+
+        .btn-continue {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--action-orange), #FF8C5A);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-continue:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .details-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .seats-grid {
+                grid-template-columns: repeat(4, 40px);
+            }
+
+            .seat {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-bus-alt"></i>
+                BusBooking
+            </div>
+            <div class="breadcrumb">
+                Home > Search Results > <strong>Select Seats</strong>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Seat Layout Section -->
+        <div class="seat-section">
+            <h2 class="section-title">
+                <i class="fas fa-couch"></i>
+                Select Your Seats
+            </h2>
+
+            <!-- Deck Tabs -->
+            <div class="deck-tabs">
+                <button class="deck-tab active" onclick="switchDeck('lower')">Lower Deck</button>
+                <button class="deck-tab" onclick="switchDeck('upper')">Upper Deck</button>
+            </div>
+
+            <!-- Seat Legend -->
+            <div class="seat-legend">
+                <div class="legend-item">
+                    <div class="legend-box available"></div>
+                    <span>Available</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box selected"></div>
+                    <span>Selected</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box booked"></div>
+                    <span>Booked</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box ladies"></div>
+                    <span>Ladies</span>
+                </div>
+            </div>
+
+            <!-- Seat Layout -->
+            <div class="seat-layout">
+                <div class="bus-front">
+                    <i class="fas fa-steering-wheel"></i> Driver
+                </div>
+                <div class="seats-grid" id="seatsGrid">
+                    <!-- Seats loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Panel -->
+        <aside class="details-panel">
+            <!-- Bus Details -->
+            <div class="details-card">
+                <div class="bus-operator">
+                    <div class="operator-logo">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <div class="operator-info">
+                        <h3>VRL Travels</h3>
+                        <p>AC Sleeper (2+1)</p>
+                        <span class="rating">
+                            <i class="fas fa-star"></i> 4.5
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <div class="journey-details">
+                    <div class="journey-point">
+                        <div class="journey-time">21:30</div>
+                        <div class="journey-city">Hyderabad</div>
+                    </div>
+                    <i class="fas fa-arrow-right journey-arrow"></i>
+                    <div class="journey-point">
+                        <div class="journey-time">06:15</div>
+                        <div class="journey-city">Bangalore</div>
+                    </div>
+                </div> -->
+
+                <div class="journey-details" id="journeyDetails"></div>
+
+
+                <h4 style="margin-bottom: 0.75rem; font-weight: 600;">Amenities</h4>
+                <div class="amenities">
+                    <div class="amenity">
+                        <i class="fas fa-wifi"></i>
+                        Wi-Fi
+                    </div>
+                    <div class="amenity">
+                        <i class="fas fa-charging-station"></i>
+                        Charging
+                    </div>
+                    <div class="amenity">
+                        <i class="fas fa-snowflake"></i>
+                        AC
+                    </div>
+                    <div class="amenity">
+                        <i class="fas fa-blanket"></i>
+                        Blanket
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boarding Points -->
+            <div class="details-card">
+                <div class="points-section">
+                    <div class="points-header" onclick="togglePoints('boarding')">
+                        <span><strong>Boarding Point</strong></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="points-list" id="boardingPoints">
+                        <div class="point-item" onclick="selectPoint('boarding', this)">
+                            <div class="point-time">21:00</div>
+                            <div class="point-name">Ameerpet Metro</div>
+                        </div>
+                        <div class="point-item" onclick="selectPoint('boarding', this)">
+                            <div class="point-time">21:30</div>
+                            <div class="point-name">Kukatpally</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="points-section">
+                    <div class="points-header" onclick="togglePoints('dropping')">
+                        <span><strong>Dropping Point</strong></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="points-list" id="droppingPoints">
+                        <div class="point-item" onclick="selectPoint('dropping', this)">
+                            <div class="point-time">05:45</div>
+                            <div class="point-name">Silk Board</div>
+                        </div>
+                        <div class="point-item" onclick="selectPoint('dropping', this)">
+                            <div class="point-time">06:15</div>
+                            <div class="point-name">Electronic City</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary">
+                <div class="summary-title">Price Summary</div>
+                <div class="selected-seats" id="selectedSeatsDisplay">
+                    <p style="color: var(--gray); font-size: 0.9rem;">No seats selected</p>
+                </div>
+                <div class="price-row">
+                    <span>Base Fare</span>
+                    <span id="baseFare">₹0</span>
+                </div>
+                <div class="price-row">
+                    <span>GST (5%)</span>
+                    <span id="gst">₹0</span>
+                </div>
+                <div class="price-row total">
+                    <span>Total Amount</span>
+                    <span id="totalAmount">₹0</span>
+                </div>
+                <button class="btn-continue" id="continueBtn" disabled>
+                    Continue to Passenger Details
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+//         // Seat Configuration
+//         const seatPrice = 1200;
+//         const selectedSeats = new Set();
+//         // let selectedBoardingPoint = null;
+//         // let selectedDroppingPoint = null;
+
+//         // Seat Layout (Lower Deck - 40 seats)
+//         const lowerDeckSeats = [
+//             // Row 1
+//             'L1', 'L2', 'spacer', 'L3', 'L4',
+//             // Row 2
+//             'L5', 'L6', 'spacer', 'L7', 'L8',
+//             // Row 3
+//             'L9', 'L10', 'spacer', 'L11', 'L12',
+//             // Row 4
+//             'L13', 'L14', 'spacer', 'L15', 'L16',
+//             // Row 5
+//             'L17', 'L18', 'spacer', 'L19', 'L20',
+//             // Row 6
+//             'L21', 'L22', 'spacer', 'L23', 'L24',
+//             // Row 7
+//             'L25', 'L26', 'spacer', 'L27', 'L28',
+//             // Row 8
+//             'L29', 'L30', 'spacer', 'L31', 'L32'
+//         ];
+
+//         // Booked seats (mock data)
+//         const bookedSeats = new Set(['L3', 'L8', 'L15', 'L22']);
+//         // Ladies seats (mock data)
+//         const ladiesSeats = new Set(['L1', 'L2', 'L9', 'L10']);
+
+//         // Render Seats
+//         function renderSeats() {
+//             const grid = document.getElementById('seatsGrid');
+//             grid.innerHTML = '';
+
+//             lowerDeckSeats.forEach(seat => {
+//                 const seatEl = document.createElement('div');
+//                 seatEl.className = 'seat';
+
+//                 if (seat === 'spacer') {
+//                     seatEl.classList.add('spacer');
+//                 } else {
+//                     seatEl.textContent = seat;
+//                     seatEl.dataset.seat = seat;
+
+//                     if (bookedSeats.has(seat)) {
+//                         seatEl.classList.add('booked');
+//                     } else if (ladiesSeats.has(seat)) {
+//                         seatEl.classList.add('ladies');
+//                     }
+
+//                     seatEl.addEventListener('click', () => toggleSeat(seat, seatEl));
+//                 }
+
+//                 grid.appendChild(seatEl);
+//             });
+//         }
+
+//         // Toggle Seat Selection
+//         function toggleSeat(seatNumber, seatEl) {
+//             if (bookedSeats.has(seatNumber)) return;
+
+//             if (selectedSeats.has(seatNumber)) {
+//                 selectedSeats.delete(seatNumber);
+//                 seatEl.classList.remove('selected');
+//             } else {
+//                 if (selectedSeats.size >= 6) {
+//                     alert('Maximum 6 seats can be selected');
+//                     return;
+//                 }
+//                 selectedSeats.add(seatNumber);
+//                 seatEl.classList.add('selected');
+//             }
+
+//             updatePriceSummary();
+//         }
+
+//         // Update Price Summary
+//         function updatePriceSummary() {
+//             const baseFare = selectedSeats.size * seatPrice;
+//             const gstAmount = baseFare * 0.05;
+//             const total = baseFare + gstAmount;
+
+//             document.getElementById('baseFare').textContent = `₹${baseFare}`;
+//             document.getElementById('gst').textContent = `₹${gstAmount.toFixed(2)}`;
+//             document.getElementById('totalAmount').textContent = `₹${total.toFixed(2)}`;
+
+//             // Update selected seats display
+//             const seatsDisplay = document.getElementById('selectedSeatsDisplay');
+//             if (selectedSeats.size > 0) {
+//                 seatsDisplay.innerHTML = Array.from(selectedSeats).map(seat => 
+//                     `<span class="seat-chip">${seat} <small>₹${seatPrice}</small></span>`
+//                 ).join('');
+//             } else {
+//                 seatsDisplay.innerHTML = '<p style="color: var(--gray); font-size: 0.9rem;">No seats selected</p>';
+//             }
+
+//             // Enable/disable continue button
+//             updateContinueButton();
+//         }
+
+//         // Toggle Points
+//         function togglePoints(type) {
+//             const pointsList = document.getElementById(`${type}Points`);
+//             pointsList.classList.toggle('expanded');
+//         }
+
+//         // Select Point
+//         function selectPoint(type, element) {
+//             const parent = element.parentElement;
+//             parent.querySelectorAll('.point-item').forEach(item => {
+//                 item.classList.remove('selected');
+//             });
+//             element.classList.add('selected');
+
+//             if (type === 'boarding') {
+//                 selectedBoardingPoint = element.querySelector('.point-name').textContent;
+//             } else {
+//                 selectedDroppingPoint = element.querySelector('.point-name').textContent;
+//             }
+
+//             updateContinueButton();
+//         }
+
+//         // Update Continue Button
+//         // function updateContinueButton() {
+//         //     const btn = document.getElementById('continueBtn');
+//         //     const canContinue = selectedSeats.size > 0 && 
+//         //                        selectedBoardingPoint && 
+//         //                        selectedDroppingPoint;
+//         //     btn.disabled = !canContinue;
+//         // }
+//         function updateContinueButton() {
+//     const btn = document.getElementById('continueBtn');
+//     btn.disabled = selectedSeats.size === 0;
+// }
+
+// // Continue to Pickup/Drop Points
+// // document.getElementById('continueBtn').addEventListener('click', () => {
+// //     if (selectedSeats.size === 0) {
+// //         alert('Please select at least one seat');
+// //         return;
+// //     }
+// //     if (!selectedBoardingPoint || !selectedDroppingPoint) {
+// //         alert('Please select boarding and dropping points');
+// //         return;
+// //     }
+    
+// //     // Store selected seats for next page
+// //     sessionStorage.setItem('selectedSeats', JSON.stringify(Array.from(selectedSeats)));
+// //     sessionStorage.setItem('boardingPoint', selectedBoardingPoint);
+// //     sessionStorage.setItem('droppingPoint', selectedDroppingPoint);
+    
+// //     window.location.href = 'pickup-droppoint.html';
+// // });
+
+// document.getElementById('continueBtn').addEventListener('click', () => {
+
+//     if (selectedSeats.size === 0) {
+//         alert('Please select at least one seat');
+//         return;
+//     }
+
+//     // Store seats only
+//     sessionStorage.setItem(
+//         'selectedSeats',
+//         JSON.stringify([...selectedSeats])
+//     );
+
+//     // Redirect to Pickup & Drop page
+//     window.location.href = 'pickup-droppoint.html';
+// });
+
+//         // Continue to Passenger Details
+//         document.getElementById('continueBtn').addEventListener('click', () => {
+//             alert(`Proceeding with:\nSeats: ${Array.from(selectedSeats).join(', ')}\nBoarding: ${selectedBoardingPoint}\nDropping: ${selectedDroppingPoint}`);
+//             // In production: window.location.href = '/passenger-details';
+//         });
+
+//         // Switch Deck
+//         function switchDeck(deck) {
+//             const tabs = document.querySelectorAll('.deck-tab');
+//             tabs.forEach(tab => tab.classList.remove('active'));
+//             event.target.classList.add('active');
+            
+//             alert(`Switching to ${deck} deck (feature to be implemented)`);
+//         }
+
+//         // Initialize
+//         renderSeats();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getSeatDeck(seat) {
+    return seat.startsWith('U') ? 'Upper' : 'Lower';
+}
+
+document.getElementById('continueBtn').onclick = () => {
+
+    if (selectedSeats.size === 0) {
+        alert('Please select at least one seat');
+        return;
+    }
+
+    // store seats
+    sessionStorage.setItem(
+        'selectedSeats',
+        JSON.stringify([...selectedSeats])
+    );
+
+    // get route from URL
+    const params = new URLSearchParams(window.location.search);
+    const fromCity = params.get('from');
+    const toCity = params.get('to');
+
+    // redirect WITH ROUTE
+    window.location.href =
+        `pickup-droppoint.html?from=${fromCity}&to=${toCity}`;
+};
+
+// document.getElementById('continueBtn').addEventListener('click', () => {
+
+//     if (selectedSeats.size === 0) {
+//         alert('Please select at least one seat');
+//         return;
+//     }
+
+//     // READ route from seat-selection URL
+//     const params = new URLSearchParams(window.location.search);
+//     const from = params.get('from');
+//     const to = params.get('to');
+
+//     if (!from || !to) {
+//         alert('Route missing. Please search again.');
+//         return;
+//     }
+
+//     // REDIRECT WITH ROUTE
+//     window.location.href =
+//         `pickup-droppoint.html?from=${from}&to=${to}`;
+// });
+document.getElementById('continueBtn').addEventListener('click', () => {
+
+    if (selectedSeats.size === 0) {
+        alert('Please select at least one seat');
+        return;
+    }
+
+    // READ route from seat-selection URL
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    const to = params.get('to');
+
+    if (!from || !to) {
+        alert('Route missing. Please search again.');
+        return;
+    }
+
+    // REDIRECT WITH ROUTE
+    window.location.href =
+        `pickup-droppoint.html?from=${from}&to=${to}`;
+});
+
+/* ===============================
+   READ ROUTE FROM URL
+================================ */
+const params = new URLSearchParams(window.location.search);
+const fromCity = params.get('from');
+const toCity = params.get('to');
+
+if (!fromCity || !toCity) {
+    alert('Route not found. Please search again.');
+    // window.location.href = 'index.html';
+    window.location.href =
+  `pickup-droppoint.html?from=${fromCity}&to=${toCity}`;
+}
+
+/* ===============================
+   UPDATE ROUTE UI
+================================ */
+document.getElementById('journeyDetails').innerHTML = `
+    <div class="journey-point">
+        <div class="journey-time">--</div>
+        <div class="journey-city">${fromCity}</div>
+    </div>
+    <i class="fas fa-arrow-right journey-arrow"></i>
+    <div class="journey-point">
+        <div class="journey-time">--</div>
+        <div class="journey-city">${toCity}</div>
+    </div>
+`;
+
+/* ===============================
+   CONFIG
+================================ */
+const seatPrice = 1200;
+const selectedSeats = new Set();
+
+/* ===============================
+   SEAT DATA
+================================ */
+const lowerDeckSeats = [
+    'L1','L2','spacer','L3','L4',
+    'L5','L6','spacer','L7','L8',
+    'L9','L10','spacer','L11','L12',
+    'L13','L14','spacer','L15','L16',
+    'L17','L18','spacer','L19','L20',
+    'L21','L22','spacer','L23','L24',
+    'L25','L26','spacer','L27','L28',
+    'L29','L30','spacer','L31','L32'
+];
+
+const bookedSeats = new Set(['L3','L8','L15','L22']);
+const ladiesSeats = new Set(['L1','L2','L9','L10']);
+
+/* ===============================
+   RENDER SEATS
+================================ */
+function renderSeats() {
+    const grid = document.getElementById('seatsGrid');
+    grid.innerHTML = '';
+
+    lowerDeckSeats.forEach(seat => {
+        const el = document.createElement('div');
+        el.className = 'seat';
+
+        if (seat === 'spacer') {
+            el.classList.add('spacer');
+        } else {
+            el.textContent = seat;
+
+            if (bookedSeats.has(seat)) el.classList.add('booked');
+            if (ladiesSeats.has(seat)) el.classList.add('ladies');
+
+            el.onclick = () => toggleSeat(seat, el);
+        }
+        grid.appendChild(el);
+    });
+}
+
+/* ===============================
+   TOGGLE SEAT
+================================ */
+function toggleSeat(seat, el) {
+
+    if (bookedSeats.has(seat)) return;
+
+    if (selectedSeats.has(seat)) {
+        selectedSeats.delete(seat);
+        el.classList.remove('selected');
+    } else {
+        if (selectedSeats.size >= 6) {
+            alert('Maximum 6 seats allowed');
+            return;
+        }
+        selectedSeats.add(seat);
+        el.classList.add('selected');
+    }
+
+    updateSummary();
+}
+
+/* ===============================
+   PRICE SUMMARY
+================================ */
+function updateSummary() {
+    const base = selectedSeats.size * seatPrice;
+    const gst = base * 0.05;
+    const total = base + gst;
+
+    document.getElementById('baseFare').textContent = `₹${base}`;
+    document.getElementById('gst').textContent = `₹${gst.toFixed(2)}`;
+    document.getElementById('totalAmount').textContent = `₹${total.toFixed(2)}`;
+
+    const display = document.getElementById('selectedSeatsDisplay');
+    if (selectedSeats.size === 0) {
+        display.innerHTML = `<p style="color:#6B7280;font-size:0.9rem;">No seats selected</p>`;
+    } else {
+        display.innerHTML = [...selectedSeats]
+            .map(s => `<span class="seat-chip">${s} <small>₹${seatPrice}</small></span>`)
+            .join('');
+    }
+
+    document.getElementById('continueBtn').disabled = selectedSeats.size === 0;
+}
+
+/* ===============================
+   CONTINUE BUTTON
+================================ */
+document.getElementById('continueBtn').onclick = () => {
+
+    if (selectedSeats.size === 0) {
+        alert('Please select at least one seat');
+        return;
+    }
+
+    sessionStorage.setItem(
+        'selectedSeats',
+        JSON.stringify([...selectedSeats])
+    );
+
+    // window.location.href = 'pickup-droppoint.html';
+};
+
+/* ===============================
+   DECK SWITCH (UI ONLY)
+================================ */
+function switchDeck(deck, tab) {
+    document.querySelectorAll('.deck-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    alert(`${deck} deck will be added later`);
+}
+
+/* ===============================
+   INIT
+================================ */
+renderSeats();
+
+
+
+//updation
+/* ===============================
+   SEAT LOCK TIMER (5 MINUTES)
+================================ */
+const LOCK_TIME = 5 * 60; // seconds
+let remainingTime = sessionStorage.getItem('seat_timer')
+    ? parseInt(sessionStorage.getItem('seat_timer'))
+    : LOCK_TIME;
+
+const timerInterval = setInterval(() => {
+    remainingTime--;
+    sessionStorage.setItem('seat_timer', remainingTime);
+
+    if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        alert('Seat lock expired. Please select seats again.');
+
+        sessionStorage.clear();
+        window.location.href = 'booking.html';
+    }
+}, 1000);
+
+
+// p
+function toggleSeat(seat, el) {
+
+    if (bookedSeats.has(seat)) return;
+
+    if (selectedSeats.has(seat)) {
+        selectedSeats.delete(seat);
+        el.classList.remove('selected');
+    } else {
+        if (selectedSeats.size >= 6) {
+            alert('Maximum 6 seats allowed');
+            return;
+        }
+        selectedSeats.add(seat);
+        el.classList.add('selected');
+    }
+
+    // 🔒 LOCK SEATS IN SESSION
+    sessionStorage.setItem(
+        'selectedSeats',
+        JSON.stringify([...selectedSeats])
+    );
+
+    updateSummary();
+}
+
+
+
+/* ===============================
+   RESTORE SELECTED SEATS
+================================ */
+const savedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+
+savedSeats.forEach(seat => {
+    const seatEl = [...document.querySelectorAll('.seat')]
+        .find(el => el.textContent === seat);
+
+    if (seatEl) {
+        seatEl.classList.add('selected');
+        selectedSeats.add(seat);
+    }
+});
+
+updateSummary();
+
+
+/* ===============================
+   PREVENT BACK NAV BREAK
+================================ */
+window.addEventListener('popstate', function () {
+    alert('Going back will cancel your booking.');
+    sessionStorage.clear();
+    window.location.href = 'booking.html';
+});
+
+history.pushState(null, null, location.href);
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offers & Coupons - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E85A2A;
+            --secondary: #004E89;
+            --accent: #FFA726;
+            --dark: #1A1A2E;
+            --light: #F7F9FC;
+            --white: #FFFFFF;
+            --gray: #6C757D;
+            --success: #28A745;
+            --danger: #DC3545;
+            --warning: #FFC107;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem 4rem;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,197.3C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Banner Slider */
+        .banner-slider {
+            max-width: 1320px;
+            margin: -2rem auto 2rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .banner-card {
+            background: linear-gradient(135deg, #FFA726 0%, #FF6B35 100%);
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            color: var(--white);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .banner-content p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .banner-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            max-width: 1320px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .filter-tabs::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        .filter-tabs::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--white);
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Offers Grid */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Offer Card */
+        .offer-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            position: relative;
+            border-left: 5px solid var(--primary);
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .offer-card.expired {
+            opacity: 0.6;
+            border-left-color: var(--gray);
+        }
+
+        .offer-card.expired:hover {
+            transform: none;
+        }
+
+        .offer-card.bank {
+            border-left-color: #4A90E2;
+        }
+
+        .offer-card.app {
+            border-left-color: #9C27B0;
+        }
+
+        .offer-card.student {
+            border-left-color: #FF9800;
+        }
+
+        .offer-card.festival {
+            border-left-color: #E91E63;
+        }
+
+        .offer-image {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 167, 38, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .offer-image i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--danger);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .offer-badge.hot {
+            background: var(--danger);
+        }
+
+        .offer-badge.new {
+            background: var(--success);
+        }
+
+        .offer-badge.expired {
+            background: var(--gray);
+        }
+
+        .offer-content {
+            padding: 1.5rem;
+        }
+
+        .offer-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .offer-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .offer-code-box {
+            background: rgba(255, 107, 53, 0.05);
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coupon-code {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .copy-icon {
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .copy-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .offer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .offer-validity {
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .offer-validity i {
+            color: var(--success);
+        }
+
+        .offer-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn-view {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-view:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-apply {
+            flex: 1;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-apply:disabled,
+        .btn-view:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-apply:disabled:hover,
+        .btn-view:disabled:hover {
+            transform: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal-coupon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-coupon-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-coupon-code {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-section-title i {
+            color: var(--primary);
+        }
+
+        .modal-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-list li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .modal-list li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-copy {
+            flex: 1;
+            padding: 1rem;
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-apply-modal {
+            flex: 1;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-apply-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            align-items: center;
+            gap: 0.7rem;
+            z-index: 3000;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .toast i {
+            font-size: 1.3rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .empty-state.show {
+            display: block;
+        }
+
+        .empty-icon {
+            font-size: 5rem;
+            color: rgba(255, 107, 53, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .empty-text {
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .offers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+                align-items: flex-start;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .banner-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .banner-icon {
+                font-size: 3rem;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-coupon-code {
+                font-size: 1.5rem;
+            }
+
+            .toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bus-alt"></i>
+                <span>BusBooking</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">Offers</a></li>
+                <li><a href="manage-booking.html" class="nav-link">Manage Booking</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">
+                <i class="fas fa-tags"></i>
+                Bus Ticket Offers & Coupons
+            </h1>
+            <p class="page-subtitle">Save more on every journey</p>
+        </div>
+    </section>
+
+    <!-- Banner Slider -->
+    <div class="banner-slider">
+        <div class="banner-card">
+            <div class="banner-content">
+                <h3>🎉 Festival Season Sale!</h3>
+                <p>Get up to 25% OFF on all bus bookings. Use code: FEST25</p>
+            </div>
+            <i class="fas fa-gift banner-icon"></i>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-section">
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterOffers('all')">
+                <i class="fas fa-fire"></i> All Offers
+            </button>
+            <button class="filter-tab" onclick="filterOffers('bus')">
+                <i class="fas fa-bus"></i> Bus Offers
+            </button>
+            <button class="filter-tab" onclick="filterOffers('bank')">
+                <i class="fas fa-credit-card"></i> Bank Offers
+            </button>
+            <button class="filter-tab" onclick="filterOffers('app')">
+                <i class="fas fa-mobile-alt"></i> App Only
+            </button>
+            <button class="filter-tab" onclick="filterOffers('student')">
+                <i class="fas fa-graduation-cap"></i> Student Offers
+            </button>
+            <button class="filter-tab" onclick="filterOffers('festival')">
+                <i class="fas fa-star"></i> Festival Offers
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="section-header">
+            <h2 class="section-title" id="sectionTitle">All Available Offers</h2>
+            <p class="section-subtitle" id="sectionSubtitle">Choose from our best deals and save on your bus tickets</p>
+        </div>
+
+        <!-- Offers Grid -->
+        <div class="offers-grid" id="offersGrid">
+            <!-- Offers will be dynamically loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <i class="fas fa-search empty-icon"></i>
+            <h3 class="empty-title">No Offers Found</h3>
+            <p class="empty-text">Try selecting a different category</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="offerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-coupon">
+                <div class="modal-coupon-label">Coupon Code</div>
+                <div class="modal-coupon-code" id="modalCouponCode"></div>
+                <button class="btn-copy" onclick="copyCoupon(document.getElementById('modalCouponCode').textContent)">
+                    <i class="fas fa-copy"></i> Copy Code
+                </button>
+            </div>
+
+            <div class="modal-description" id="modalDescription"></div>
+
+            <div class="modal-section">
+                <h4 class="modal-section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Offer Details
+                </h4>
+                <ul class="modal-list" id="modalDetails">
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h4 class="modal-section-title">
+                    <i class="fas fa-file-alt"></i>
+                    Terms & Conditions
+                </h4>
+                <ul class="modal-list" id="modalTerms">
+                </ul>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-apply-modal" onclick="applyOffer()">
+                    <i class="fas fa-check"></i> Apply Offer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script>
+        // Offers Data
+        const offersData = [
+            {
+                id: 1,
+                category: 'bus',
+                type: 'hot',
+                title: 'Flat ₹200 OFF on Bus Tickets',
+                description: 'Book any bus ticket and get instant ₹200 discount on your booking.',
+                code: 'BUS200',
+                validity: '31 Jan 2026',
+                expired: false,
+                image: 'fa-bus',
+                details: [
+                    'Valid on all bus operators',
+                    'Minimum booking value: ₹500',
+                    'Maximum discount: ₹200',
+                    'Valid for one-time use per user'
+                ],
+                terms: [
+                    'Offer valid till 31 January 2026',
+                    'Cannot be combined with other offers',
+                    'Applicable on web and app bookings',
+                    'Non-refundable in case of cancellation'
+                ]
+            },
+            {
+                id: 2,
+                category: 'bank',
+                type: 'new',
+                title: 'HDFC Bank: Get 15% OFF',
+                description: 'Pay with HDFC Credit/Debit card and enjoy 15% instant discount.',
+                code: 'HDFC15',
+                validity: '28 Feb 2026',
+                expired: false,
+                image: 'fa-credit-card',
+                borderColor: 'bank',
+                details: [
+                    'Valid on HDFC Credit and Debit cards',
+                    'Minimum transaction: ₹1000',
+                    'Maximum discount: ₹300',
+                    'Valid twice per card per month'
+                ],
+                terms: [
+                    'Offer valid on HDFC payment gateway only',
+                    'Discount will be applied automatically',
+                    'Subject to bank terms and conditions',
+                    'Valid for registered HDFC cardholders'
+                ]
+            },
+            {
+                id: 3,
+                category: 'app',
+                type: 'hot',
+                title: 'App Exclusive: ₹150 OFF',
+                description: 'Download our app and get ₹150 OFF on your first booking through the app.',
+                code: 'APP150',
+                validity: '15 Mar 2026',
+                expired: false,
+                image: 'fa-mobile-alt',
+                borderColor: 'app',
+                details: [
+                    'Valid only on mobile app bookings',
+                    'For first-time app users only',
+                    'Minimum booking: ₹600',
+                    'One-time use per user'
+                ],
+                terms: [
+                    'Download the BusBooking app to avail',
+                    'Offer auto-applied for first booking',
+                    'Valid on Android and iOS platforms',
+                    'Cannot be clubbed with other discounts'
+                ]
+            },
+            {
+                id: 4,
+                category: 'student',
+                type: 'new',
+                title: 'Student Special: 20% OFF',
+                description: 'Students get flat 20% discount on all bus bookings. Valid student ID required.',
+                code: 'STUDENT20',
+                validity: '30 Jun 2026',
+                expired: false,
+                image: 'fa-graduation-cap',
+                borderColor: 'student',
+                details: [
+                    'Valid student ID proof required',
+                    'Applicable on all routes',
+                    'Minimum booking: ₹400',
+                    'Maximum discount: ₹250'
+                ],
+                terms: [
+                    'Valid student ID must be shown during boarding',
+                    'Age limit: 16-25 years',
+                    'Cannot be combined with other student offers',
+                    'Verification may be required'
+                ]
+            },
+            {
+                id: 5,
+                category: 'festival',
+                type: 'hot',
+                title: 'Diwali Dhamaka: 25% OFF',
+                description: 'Celebrate Diwali with our biggest sale! Get 25% OFF on all bus tickets.',
+                code: 'DIWALI25',
+                validity: '10 Nov 2026',
+                expired: false,
+                image: 'fa-star',
+                borderColor: 'festival',
+                details: [
+                    'Valid during Diwali season',
+                    'Minimum booking: ₹800',
+                    'Maximum discount: ₹500',
+                    'Valid on all bus operators'
+                ],
+                terms: [
+                    'Offer valid from 25 Oct to 10 Nov 2026',
+                    'Limited period offer',
+                    'Subject to seat availability',
+                    'Blackout dates may apply'
+                ]
+            },
+            {
+                id: 6,
+                category: 'bank',
+                type: 'new',
+                title: 'SBI Card: Get ₹100 Cashback',
+                description: 'Pay using SBI Credit Card and receive ₹100 instant cashback on your booking.',
+                code: 'SBI100',
+                validity: '31 Mar 2026',
+                expired: false,
+                image: 'fa-credit-card',
+                borderColor: 'bank',
+                details: [
+                    'Valid on SBI Credit Cards only',
+                    'Minimum transaction: ₹700',
+                    'Cashback credited within 48 hours',
+                    'Maximum cashback: ₹100 per transaction'
+                ],
+                terms: [
+                    'Applicable on SBI payment gateway',
+                    'Valid for all SBI credit card variants',
+                    'Cashback will be credited to card account',
+                    'Subject to SBI terms and conditions'
+                ]
+            },
+            {
+                id: 7,
+                category: 'bus',
+                type: null,
+                title: 'First Time User: ₹300 OFF',
+                description: 'New to BusBooking? Get ₹300 OFF on your first bus ticket booking with us!',
+                code: 'FIRST300',
+                validity: '31 Dec 2026',
+                expired: false,
+                image: 'fa-user-plus',
+                details: [
+                    'Valid for first-time users only',
+                    'Minimum booking value: ₹1000',
+                    'One-time use per user',
+                    'Valid on web and app'
+                ],
+                terms: [
+                    'User account must be new',
+                    'Offer cannot be transferred',
+                    'Valid for single journey bookings only',
+                    'Verification required for eligibility'
+                ]
+            },
+            {
+                id: 8,
+                category: 'bus',
+                type: 'expired',
+                title: 'Republic Day Special: ₹150 OFF',
+                description: 'Celebrate Republic Day with special discounts on all bus bookings.',
+                code: 'REPUBLIC150',
+                validity: '26 Jan 2026',
+                expired: true,
+                image: 'fa-flag',
+                details: [
+                    'Valid during Republic Day period',
+                    'Minimum booking: ₹500',
+                    'Maximum discount: ₹150'
+                ],
+                terms: [
+                    'Offer has expired',
+                    'Was valid from 20-26 Jan 2026'
+                ]
+            },
+            {
+                id: 9,
+                category: 'app',
+                type: 'hot',
+                title: 'Weekend Special: 10% Extra OFF',
+                description: 'Book through our app on weekends and get extra 10% discount on top of other offers.',
+                code: 'WEEKEND10',
+                validity: '28 Feb 2026',
+                expired: false,
+                image: 'fa-calendar-week',
+                borderColor: 'app',
+                details: [
+                    'Valid only on Saturdays and Sundays',
+                    'App booking required',
+                    'Can be combined with other offers',
+                    'Maximum additional discount: ₹100'
+                ],
+                terms: [
+                    'Booking must be made on weekends',
+                    'Travel date can be any day',
+                    'Valid on mobile app only',
+                    'Auto-applied on eligible bookings'
+                ]
+            },
+            {
+                id: 10,
+                category: 'festival',
+                type: 'new',
+                title: 'Sankranti Special: ₹200 OFF',
+                description: 'Celebrate Makar Sankranti with our special offer. Get ₹200 instant discount.',
+                code: 'SANKRANTI200',
+                validity: '20 Jan 2026',
+                expired: false,
+                image: 'fa-sun',
+                borderColor: 'festival',
+                details: [
+                    'Valid during Sankranti festival',
+                    'Minimum booking: ₹600',
+                    'Maximum discount: ₹200',
+                    'Valid on all routes'
+                ],
+                terms: [
+                    'Valid from 10-20 Jan 2026',
+                    'Limited time offer',
+                    'Subject to availability',
+                    'Cannot be combined with student offers'
+                ]
+            }
+        ];
+
+        let currentFilter = 'all';
+        let selectedOffer = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderOffers(offersData);
+        });
+
+        // Filter Offers
+        function filterOffers(category) {
+            currentFilter = category;
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.closest('.filter-tab').classList.add('active');
+            
+            // Filter data
+            const filteredOffers = category === 'all' 
+                ? offersData 
+                : offersData.filter(offer => offer.category === category);
+            
+            // Update section header
+            const titles = {
+                all: 'All Available Offers',
+                bus: 'Bus Ticket Offers',
+                bank: 'Bank & Payment Offers',
+                app: 'App Exclusive Offers',
+                student: 'Student Special Offers',
+                festival: 'Festival Season Offers'
+            };
+            
+            const subtitles = {
+                all: 'Choose from our best deals and save on your bus tickets',
+                bus: 'Exclusive discounts on bus bookings',
+                bank: 'Special offers for bank card users',
+                app: 'Download our app for exclusive deals',
+                student: 'Special discounts for students',
+                festival: 'Celebrate with amazing festival offers'
+            };
+            
+            document.getElementById('sectionTitle').textContent = titles[category];
+            document.getElementById('sectionSubtitle').textContent = subtitles[category];
+            
+            // Render filtered offers
+            renderOffers(filteredOffers);
+        }
+
+        // Render Offers
+        function renderOffers(offers) {
+            const grid = document.getElementById('offersGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (offers.length === 0) {
+                grid.style.display = 'none';
+                emptyState.classList.add('show');
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.classList.remove('show');
+            
+            grid.innerHTML = offers.map(offer => `
+                <div class="offer-card ${offer.borderColor || ''} ${offer.expired ? 'expired' : ''}" data-id="${offer.id}">
+                    <div class="offer-image">
+                        <i class="fas ${offer.image}"></i>
+                        ${offer.type ? `<span class="offer-badge ${offer.type}">${offer.type}</span>` : ''}
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="offer-title">${offer.title}</h3>
+                        <p class="offer-description">${offer.description}</p>
+                        <div class="offer-code-box">
+                            <span class="coupon-code">${offer.code}</span>
+                            <i class="fas fa-copy copy-icon" onclick="copyCoupon('${offer.code}')" title="Copy code"></i>
+                        </div>
+                        <div class="offer-meta">
+                            <span class="offer-validity">
+                                <i class="fas fa-clock"></i>
+                                Valid till ${offer.validity}
+                            </span>
+                        </div>
+                        <div class="offer-actions">
+                            <button class="btn-view" onclick="viewOffer(${offer.id})" ${offer.expired ? 'disabled' : ''}>
+                                View Details
+                            </button>
+                            <button class="btn-apply" onclick="applyOfferQuick('${offer.code}')" ${offer.expired ? 'disabled' : ''}>
+                                Apply Offer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Copy Coupon
+        function copyCoupon(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast(`Coupon "${code}" copied successfully!`);
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast(`Coupon "${code}" copied successfully!`);
+            });
+        }
+
+        // View Offer Details
+        function viewOffer(offerId) {
+            selectedOffer = offersData.find(offer => offer.id === offerId);
+            if (!selectedOffer) return;
+            
+            document.getElementById('modalTitle').textContent = selectedOffer.title;
+            document.getElementById('modalCouponCode').textContent = selectedOffer.code;
+            document.getElementById('modalDescription').textContent = selectedOffer.description;
+            
+            // Render details
+            const detailsList = document.getElementById('modalDetails');
+            detailsList.innerHTML = selectedOffer.details.map(detail => `<li>${detail}</li>`).join('');
+            
+            // Render terms
+            const termsList = document.getElementById('modalTerms');
+            termsList.innerHTML = selectedOffer.terms.map(term => `<li>${term}</li>`).join('');
+            
+            // Open modal
+            document.getElementById('offerModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('offerModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Apply Offer (Quick)
+        function applyOfferQuick(code) {
+            copyCoupon(code);
+            setTimeout(() => {
+                window.location.href = 'index.html?coupon=' + code;
+            }, 1000);
+        }
+
+        // Apply Offer (from Modal)
+        function applyOffer() {
+            if (selectedOffer) {
+                copyCoupon(selectedOffer.code);
+                setTimeout(() => {
+                    closeModal();
+                    window.location.href = 'index.html?coupon=' + selectedOffer.code;
+                }, 1000);
+            }
+        }
+
+        // Show Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('offerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'offerModal') {
+                closeModal();
+            }
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

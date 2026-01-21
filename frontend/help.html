@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">">
+    <style>
+        
+        footer {
+            background: #1a1a2e;
+            color: #e5e7eb;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-about h3 i {
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: #374151;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #374151;
+            background: #374151;
+            color: var(--white);
+            border-radius: 25px 0 0 25px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .newsletter-btn {
+            padding: 0.9rem 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .search-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+                align-items: flex-start;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-cta a, .nav-cta button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .swap-btn {
+                right: 50%;
+                transform: translateX(50%) rotate(90deg);
+                bottom: -18px;
+                top: auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .offer-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E85A2A;
+            --secondary: #004E89;
+            --accent: #FFA726;
+            --dark: #1A1A2E;
+            --light: #F7F9FC;
+            --white: #FFFFFF;
+            --gray: #6C757D;
+            --success: #28A745;
+            --danger: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+        }
+           
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2.5rem 2rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1320px;
+            margin: -2rem auto 3rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 4rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin-top: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: var(--light);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .search-result-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .search-highlight {
+            background: rgba(255, 107, 53, 0.2);
+            font-weight: 600;
+        }
+
+        .no-results {
+            padding: 2rem;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Safety Alert */
+        .safety-alert {
+            background: rgba(220, 53, 69, 0.05);
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .safety-icon {
+            font-size: 1.5rem;
+            color: var(--danger);
+            flex-shrink: 0;
+        }
+
+        .safety-content h3 {
+            color: var(--danger);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .safety-content p {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .safety-content a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Quick Actions */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 167, 38, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .action-label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        /* Booking Lookup */
+        .booking-lookup {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .lookup-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+
+        .btn-primary {
+            padding: 0.9rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: end;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-category {
+            padding: 0.7rem 1.5rem;
+            background: var(--white);
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .faq-category.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        .faq-list {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #f0f0f0;
+            padding: 1.2rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            padding: 0.5rem 0;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            color: var(--primary);
+            transition: transform 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-top: 1rem;
+        }
+
+        .faq-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .faq-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Options */
+        .contact-section {
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .contact-icon-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 167, 38, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-desc {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-sla {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-contact {
+            padding: 0.9rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* Chat Widget */
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 12px;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .chat-message.bot {
+            justify-content: flex-start;
+        }
+
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+
+        .chat-message.bot .message-bubble {
+            background: var(--white);
+            color: var(--dark);
+        }
+
+        .chat-message.user .message-bubble {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+        }
+
+        .chat-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .chat-option-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .chat-option-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-send {
+            padding: 0.9rem 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            align-items: center;
+            gap: 0.7rem;
+            z-index: 3000;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .lookup-form {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .faq-categories {
+                flex-wrap: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bus-alt"></i>
+                <span>BusBooking</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">Help & Support — 24/7 Assistance</h1>
+            <p class="page-subtitle">Get instant help with bookings, cancellations, refunds, and payments</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-card">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="helpSearch" 
+                    placeholder="Search help: cancel booking, refund status, show ticket..."
+                    autocomplete="off"
+                >
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Safety Alert -->
+        <div class="safety-alert">
+            <i class="fas fa-exclamation-triangle safety-icon"></i>
+            <div class="safety-content">
+                <h3>⚠️ Safety Notice - Beware of Fraud</h3>
+                <p>Only trust contact numbers and links shown on this page. We will <strong>never ask for OTP, CVV, or full card details</strong> via phone or email.</p>
+                <a href="#" onclick="showModal('fraud'); return false;">Read Official Support Policy →</a>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="quick-actions">
+            <div class="action-card" onclick="showModal('ticket')">
+                <div class="action-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="action-label">Show / Download Ticket</div>
+            </div>
+            <div class="action-card" onclick="showModal('cancel')">
+                <div class="action-icon">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="action-label">Cancel Booking</div>
+            </div>
+            <div class="action-card" onclick="showModal('reschedule')">
+                <div class="action-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="action-label">Change Travel Date</div>
+            </div>
+            <div class="action-card" onclick="showModal('refund')">
+                <div class="action-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="action-label">Refund Status</div>
+            </div>
+            <div class="action-card" onclick="showModal('payment')">
+                <div class="action-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="action-label">Payment Issues</div>
+            </div>
+            <div class="action-card" onclick="showModal('account')">
+                <div class="action-icon">
+                    <i class="fas fa-user-lock"></i>
+                </div>
+                <div class="action-label">Login / Account Help</div>
+            </div>
+        </div>
+
+        <!-- Booking Lookup -->
+        <div class="booking-lookup">
+            <h2 class="section-title">Get Help with Your Booking</h2>
+            <form class="lookup-form" id="lookupForm">
+                <div class="form-group">
+                    <label class="form-label">Ticket ID</label>
+                    <input type="text" class="form-input" placeholder="Enter Ticket ID" id="ticketId" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mobile / Email</label>
+                    <input type="text" class="form-input" placeholder="Enter Mobile or Email" id="contact" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-search"></i> Lookup
+                </button>
+            </form>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-categories">
+                <button class="faq-category active" onclick="filterFAQ('booking')">Booking</button>
+                <button class="faq-category" onclick="filterFAQ('cancellation')">Cancellation</button>
+                <button class="faq-category" onclick="filterFAQ('refunds')">Refunds</button>
+                <button class="faq-category" onclick="filterFAQ('payments')">Payments</button>
+                <button class="faq-category" onclick="filterFAQ('account')">Account</button>
+            </div>
+            <div class="faq-list" id="faqList">
+                <!-- FAQs will be dynamically loaded -->
+            </div>
+        </div>
+
+        <!-- Contact Options -->
+        <div class="contact-section">
+            <h2 class="section-title">Contact Support</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon-box">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="contact-title">Call Support</h3>
+                    <p class="contact-desc">Speak with our support team directly for urgent assistance</p>
+                    <span class="contact-sla">24/7 Available</span>
+                    <button class="btn-contact" onclick="callSupport()">
+                        <i class="fas fa-phone"></i> Call +91-1800-XXX-XXXX
+                    </button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon-box">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="contact-title">Live Chat</h3>
+                    <p class="contact-desc">Chat with our AI bot or connect with a live agent instantly</p>
+                    <span class="contact-sla">Response in ~3 mins</span>
+                    <button class="btn-contact" onclick="openChat()">
+                        <i class="fas fa-comment-dots"></i> Start Chat
+                    </button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon-box">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-title">Email Support</h3>
+                    <p class="contact-desc">Send us your query and we'll respond within 24 hours</p>
+                    <span class="contact-sla">Response in 24 hrs</span>
+                    <button class="btn-contact" onclick="showModal('email')">
+                        <i class="fas fa-paper-plane"></i> Send Email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="mainModal">
+        <div class="modal-content" id="modalContent">
+            <!-- Content will be dynamically loaded -->
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Live Chat Support</h2>
+                <button class="modal-close" onclick="closeChat()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot">
+                    <div class="message-bubble">
+                        Hello! I'm here to help. What can I assist you with today?
+                        <div class="chat-options">
+                            <button class="chat-option-btn" onclick="selectChatOption('cancel')">Cancel Booking</button>
+                            <button class="chat-option-btn" onclick="selectChatOption('refund')">Check Refund</button>
+                            <button class="chat-option-btn" onclick="selectChatOption('ticket')">Download Ticket</button>
+                            <button class="chat-option-btn" onclick="selectChatOption('agent')">Talk to Agent</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="btn-send" onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+      
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+                    <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // FAQ Data
+        const faqData = {
+            booking: [
+                {
+                    question: "How do I book a bus ticket?",
+                    answer: "Enter your journey details on the home page, select a bus, choose your seat, and complete the payment. You'll receive instant confirmation via SMS and email."
+                },
+                {
+                    question: "Can I book tickets for someone else?",
+                    answer: "Yes, you can book tickets for any passenger. Just enter their details during booking. The ticket will be sent to your registered mobile and email."
+                },
+                {
+                    question: "What documents do I need while traveling?",
+                    answer: "You need to carry a valid government-issued photo ID (Aadhar, PAN, Passport, or Driving License) and your e-ticket (printed or on mobile)."
+                },
+                {
+                    question: "How early should I reach the boarding point?",
+                    answer: "We recommend reaching 15-20 minutes before departure time to complete boarding formalities and avoid last-minute rush."
+                }
+            ],
+            cancellation: [
+                {
+                    question: "How do I cancel my booking?",
+                    answer: "Go to 'Manage Booking', enter your Ticket ID and mobile number, then click 'Cancel Booking'. You'll see cancellation charges before confirming."
+                },
+                {
+                    question: "What are the cancellation charges?",
+                    answer: "Cancellation charges vary by operator and time before departure. Typically 10-30% of ticket price. Exact charges are shown before you confirm cancellation."
+                },
+                {
+                    question: "Can I cancel just one seat from my booking?",
+                    answer: "Yes, partial cancellation is allowed. You can select specific seats to cancel while keeping others active. <a href='#' class='faq-link'>Learn more</a>"
+                },
+                {
+                    question: "Till when can I cancel my ticket?",
+                    answer: "Cancellation is allowed up to 1-2 hours before departure, depending on the bus operator's policy. Check your ticket for specific cutoff time."
+                }
+            ],
+            refunds: [
+                {
+                    question: "When will I receive my refund?",
+                    answer: "Refunds are processed within 3-7 business days after cancellation approval. The amount will be credited to your original payment method."
+                },
+                {
+                    question: "How can I check my refund status?",
+                    answer: "Enter your Ticket ID in the 'Refund Status' section above, or check your registered email for refund updates."
+                },
+                {
+                    question: "Why is my refund less than ticket price?",
+                    answer: "The refund amount is calculated after deducting cancellation charges, payment gateway fees, and any applicable taxes as per operator policy."
+                },
+                {
+                    question: "My refund hasn't arrived yet. What to do?",
+                    answer: "Bank transfers can take 5-7 working days. If it's been longer, contact us with your Ticket ID and bank details for assistance."
+                }
+            ],
+            payments: [
+                {
+                    question: "What payment methods are accepted?",
+                    answer: "We accept Credit/Debit Cards, Net Banking, UPI, Wallets (Paytm, PhonePe, Google Pay), and EMI options from select banks."
+                },
+                {
+                    question: "Is it safe to pay on this platform?",
+                    answer: "Absolutely! All transactions are secured with 256-bit SSL encryption and PCI DSS compliance. We never store your complete card details."
+                },
+                {
+                    question: "My payment failed but amount was deducted",
+                    answer: "If payment fails, the amount is typically auto-refunded within 5-7 working days. If you don't receive it, contact us with transaction details. <a href='#' class='faq-link'>Report issue</a>"
+                },
+                {
+                    question: "Can I pay partially with wallet and card?",
+                    answer: "Yes, you can use wallet balance partially and pay the remaining amount via card, UPI, or net banking during checkout."
+                }
+            ],
+            account: [
+                {
+                    question: "I forgot my password. How to reset?",
+                    answer: "Click 'Forgot Password' on the login page, enter your registered email/mobile, and follow the reset link sent to you."
+                },
+                {
+                    question: "How do I change my mobile number?",
+                    answer: "Go to 'My Account' → 'Profile Settings' → Update your mobile number. You'll receive an OTP for verification."
+                },
+                {
+                    question: "Can I delete my account?",
+                    answer: "Yes, you can request account deletion from Profile Settings. All your data will be permanently deleted within 30 days."
+                },
+                {
+                    question: "Why can't I login to my account?",
+                    answer: "Check if you're using the correct email/mobile and password. Try resetting your password. If issue persists, contact support."
+                }
+            ]
+        };
+
+        // Search FAQ Data
+        const searchFAQData = [];
+        Object.keys(faqData).forEach(category => {
+            faqData[category].forEach(faq => {
+                searchFAQData.push({
+                    category: category,
+                    question: faq.question,
+                    answer: faq.answer.replace(/<[^>]*>/g, '') // Strip HTML for search
+                });
+            });
+        });
+
+        // Initialize
+        let currentCategory = 'booking';
+        renderFAQ(currentCategory);
+
+        // Search Functionality
+        const searchInput = document.getElementById('helpSearch');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length < 2) {
+                searchResults.classList.remove('show');
+                return;
+            }
+
+            const results = searchFAQData.filter(faq => 
+                faq.question.toLowerCase().includes(query) || 
+                faq.answer.toLowerCase().includes(query)
+            );
+
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">We couldn\'t find a match. Try different words or <a href="#" onclick="openChat(); return false;">contact support</a>.</div>';
+                searchResults.classList.add('show');
+                return;
+            }
+
+            searchResults.innerHTML = results.slice(0, 5).map(result => {
+                const highlightedQuestion = highlightText(result.question, query);
+                const highlightedAnswer = highlightText(result.answer.substring(0, 100) + '...', query);
+                return `
+                    <div class="search-result-item" onclick="selectSearchResult('${result.category}', '${escapeHtml(result.question)}')">
+                        <div class="search-result-title">${highlightedQuestion}</div>
+                        <div class="search-result-desc">${highlightedAnswer}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            searchResults.classList.add('show');
+        });
+
+        // Click outside to close search results
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-wrapper')) {
+                searchResults.classList.remove('show');
+            }
+        });
+
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function selectSearchResult(category, question) {
+            searchResults.classList.remove('show');
+            searchInput.value = '';
+            filterFAQ(category);
+            setTimeout(() => {
+                const faqItems = document.querySelectorAll('.faq-question');
+                faqItems.forEach(item => {
+                    if (item.textContent.includes(question)) {
+                        item.click();
+                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }, 300);
+        }
+
+        // Filter FAQ
+        function filterFAQ(category) {
+            currentCategory = category;
+            
+            // Update active category
+            document.querySelectorAll('.faq-category').forEach(cat => cat.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderFAQ(category);
+        }
+
+        // Render FAQ
+        function renderFAQ(category) {
+            const faqList = document.getElementById('faqList');
+            const faqs = faqData[category];
+            
+            faqList.innerHTML = faqs.map((faq, index) => `
+                <div class="faq-item" data-index="${index}">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>${faq.question}</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">${faq.answer}</div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle FAQ
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Booking Lookup
+        document.getElementById('lookupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const ticketId = document.getElementById('ticketId').value;
+            const contact = document.getElementById('contact').value;
+            
+            if (ticketId && contact) {
+                showToast('Booking found! Showing options...', 'success');
+                setTimeout(() => {
+                    showModal('booking-actions');
+                }, 1000);
+            } else {
+                showToast('Please enter both Ticket ID and contact details', 'error');
+            }
+        });
+
+        // Show Modal
+        function showModal(type) {
+            const modal = document.getElementById('mainModal');
+            const content = document.getElementById('modalContent');
+            
+            const modals = {
+                ticket: `
+                    <div class="modal-header">
+                        <h2 class="modal-title">Download Your Ticket</h2>
+                        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <p style="margin-bottom: 1.5rem; color: var(--gray);">Enter your booking details to download your e-ticket</p>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label">Ticket ID</label>
+                            <input type="text" class="form-input" placeholder="Enter Ticket ID">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text" class="form-input" placeholder="Enter Mobile Number">
+                        </div>
+                        <button class="btn-primary" style="width: 100%;" onclick="downloadTicket()">
+                            <i class="fas fa-download"></i> Download Ticket
+                        </button>
+                    </div>
+                `,
+                cancel: `
+                    <div class="modal-header">
+                        <h2 class="modal-title">Cancel Booking</h2>
+                        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <div style="background: rgba(220, 53, 69, 0.1); border: 2px solid var(--danger); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+                            <h4 style="color: var(--danger); margin-bottom: 0.5rem;">Cancellation Charges</h4>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                                <span>Ticket Amount:</span>
+                                <span>₹997.50</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem; color: var(--danger);">
+                                <span>Cancellation Charges (15%):</span>
+                                <span>- ₹149.63</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; color: var(--success); border-top: 2px solid #ddd; padding-top: 0.5rem; margin-top: 0.5rem;">
+                                <span>Refund Amount:</span>
+                                <span>₹847.87</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--gray); margin-bottom: 1.5rem;">Refund will be processed within 3-7 working days to your original payment method.</p>
+                        <button class="btn-primary" style="width: 100%; background: var(--danger);" onclick="confirmCancellation()">
+                            <i class="fas fa-times-circle"></i> Confirm Cancellation
+                        </button>
+                    </div>
+                `,
+                refund: `
+                    <div class="modal-header">
+                        <h2 class="modal-title">Check Refund Status</h2>
+                        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label">Ticket ID</label>
+                            <input type="text" class="form-input" placeholder="Enter Ticket ID">
+                        </div>
+                        <button class="btn-primary" style="width: 100%;" onclick="checkRefund()">
+                            <i class="fas fa-search"></i> Check Status
+                        </button>
+                    </div>
+                `,
+                email: `
+                    <div class="modal-header">
+                        <h2 class="modal-title">Email Support</h2>
+                        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label">Your Email</label>
+                            <input type="email" class="form-input" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" placeholder="Brief subject">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input" rows="5" placeholder="Describe your issue in detail..."></textarea>
+                        </div>
+                        <button class="btn-primary" style="width: 100%;" onclick="sendEmail()">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </div>
+                `,
+                fraud: `
+                    <div class="modal-header">
+                        <h2 class="modal-title">Official Support Policy</h2>
+                        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <h4 style="margin-bottom: 1rem;">How to Identify Official Support</h4>
+                        <ul style="list-style: none; padding: 0; color: var(--gray); line-height: 2;">
+                            <li>✓ Only use phone numbers displayed on this website</li>
+                            <li>✓ Our domain is busbooking.com - verify before entering details</li>
+                            <li>✓ We never ask for OTP, CVV, or full card numbers</li>
+                            <li>✓ Official emails end with @busbooking.com only</li>
+                            <li>✓ We never call asking for bank account details</li>
+                        </ul>
+                        <div style="background: rgba(220, 53, 69, 0.1); border-left: 4px solid var(--danger); padding: 1rem; margin-top: 1.5rem; border-radius: 8px;">
+                            <strong>Report Fraud:</strong> If you receive suspicious calls or emails claiming to be from BusBooking, report immediately at fraud@busbooking.com
+                        </div>
+                    </div>
+                `
+            };
+            
+            content.innerHTML = modals[type] || '<p>Content not found</p>';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('mainModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Chat Functions
+        function openChat() {
+            document.getElementById('chatModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectChatOption(option) {
+            const chatMessages = document.getElementById('chatMessages');
+            const userMessage = {
+                cancel: 'I want to cancel my booking',
+                refund: 'Check my refund status',
+                ticket: 'Download my ticket',
+                agent: 'I need to talk to an agent'
+            }[option];
+
+            const botResponse = {
+                cancel: 'I can help you cancel your booking. Please provide your Ticket ID.',
+                refund: 'I\'ll check your refund status. Please share your Ticket ID.',
+                ticket: 'I can help you download your ticket. Please provide your Ticket ID and mobile number.',
+                agent: 'Connecting you to a live agent. Please wait...'
+            }[option];
+
+            chatMessages.innerHTML += `
+                <div class="chat-message user">
+                    <div class="message-bubble">${userMessage}</div>
+                </div>
+                <div class="chat-message bot">
+                    <div class="message-bubble">${botResponse}</div>
+                </div>
+            `;
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (option === 'agent') {
+                setTimeout(() => {
+                    chatMessages.innerHTML += `
+                        <div class="chat-message bot">
+                            <div class="message-bubble" style="background: var(--success); color: white;">
+                                Agent John connected! How can I assist you today?
+                            </div>
+                        </div>
+                    `;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 2000);
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML += `
+                <div class="chat-message user">
+                    <div class="message-bubble">${message}</div>
+                </div>
+                <div class="chat-message bot">
+                    <div class="message-bubble">Thank you for your message. An agent will respond shortly.</div>
+                </div>
+            `;
+            
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Action Functions
+        function downloadTicket() {
+            showToast('Your ticket is being downloaded...', 'success');
+            setTimeout(() => {
+                closeModal();
+            }, 1500);
+        }
+
+        function confirmCancellation() {
+            showToast('Booking cancelled successfully! Refund will be processed in 3-7 days.', 'success');
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+        }
+
+        function checkRefund() {
+            showToast('Refund Status: Processing. Expected credit in 3-5 days.', 'success');
+        }
+
+        function sendEmail() {
+            showToast('Email sent successfully! We\'ll respond within 24 hours.', 'success');
+            setTimeout(() => {
+                closeModal();
+            }, 1500);
+        }
+
+        function callSupport() {
+            window.location.href = 'tel:+911800XXXXXXX';
+        }
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toast.className = 'toast show';
+            if (type === 'error') toast.classList.add('error');
+            
+            toastMessage.textContent = message;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeChat();
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('mainModal').addEventListener('click', (e) => {
+            if (e.target.id === 'mainModal') closeModal();
+        });
+
+        document.getElementById('chatModal').addEventListener('click', (e) => {
+            if (e.target.id === 'chatModal') closeChat();
+        });
+
+        // Chat input enter key
+        document.getElementById('chatInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        // Set today's date as minimum for date input
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('journeyDate').setAttribute('min', today);
+        document.getElementById('journeyDate').value = today;
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Swap cities function
+        function swapCities() {
+            const fromCity = document.getElementById('fromCity');
+            const toCity = document.getElementById('toCity');
+            const temp = fromCity.value;
+            fromCity.value = toCity.value;
+            toCity.value = temp;
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Search tabs functionality
+        const searchTabs = document.querySelectorAll('.search-tab');
+        searchTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                searchTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Form submission
+        document.querySelector('.search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Searching for buses... This is a demo interface!');
+        });
+
+        // Newsletter submission
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+        });
+
+        
+
+
+
+
+
+        //from here starts the manage booking code//
+
+
+         // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const ticketId = document.getElementById('ticketId').value;
+            const contact = document.getElementById('contact').value;
+
+            // Simulate booking retrieval
+            if (ticketId && contact) {
+                // Show booking details
+                document.getElementById('bookingDetails').classList.add('active');
+                document.getElementById('emptyState').classList.remove('active');
+                
+                // Smooth scroll to details
+                setTimeout(() => {
+                    document.getElementById('bookingDetails').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+            } else {
+                // Show empty state
+                document.getElementById('bookingDetails').classList.remove('active');
+                document.getElementById('emptyState').classList.add('active');
+                
+                // Smooth scroll to empty state
+                setTimeout(() => {
+                    document.getElementById('emptyState').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 100);
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Download Ticket
+        function downloadTicket() {
+            // Simulate ticket download
+            alert('Downloading your e-ticket...\n\nYour ticket has been downloaded successfully!\n\nTicket ID: BUS123456789\nRoute: Mumbai → Pune\nDate: 25 Jan 2026\n\nThis is a paperless M-Ticket. Show this on your mobile during boarding.');
+        }
+
+        // Reschedule Booking
+        function rescheduleBooking() {
+            alert('Reschedule Feature\n\nYou can reschedule your journey to a different date.\n\nRescheduling charges: ₹100 + fare difference (if any)\n\nThis feature will redirect you to the reschedule page.');
+        }
+
+        // Open Cancel Modal
+        function openCancelModal() {
+            document.getElementById('cancelModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Cancel Modal
+        function closeCancelModal() {
+            document.getElementById('cancelModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Confirm Cancellation
+        function confirmCancellation() {
+            // Simulate cancellation
+            alert('Booking Cancelled Successfully!\n\nRefund Amount: ₹847.87\n\nThe refund will be processed to your original payment method within 5-7 business days.\n\nCancellation ID: CAN123456789');
+            
+            // Update booking status
+            const statusBadge = document.querySelector('.status-badge');
+            statusBadge.className = 'status-badge status-cancelled';
+            statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> Cancelled';
+            
+            // Disable action buttons
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+            
+            closeCancelModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('cancelModal').addEventListener('click', (e) => {
+            if (e.target.id === 'cancelModal') {
+                closeCancelModal();
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Auto-focus on ticket ID input
+        document.getElementById('ticketId').focus();
+    </script>
+</body>
+</html>

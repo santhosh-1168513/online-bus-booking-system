@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Pickup & Drop Points - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E40AF;
+            --action-orange: #FF6B35;
+            --success: #10B981;
+            --dark: #1F2937;
+            --gray: #6B7280;
+            --light: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Route Header */
+        .route-header {
+            max-width: 1600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .route-banner {
+            background: linear-gradient(135deg, var(--primary-blue), #3B82F6);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .route-banner h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .route-banner p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .route-arrow {
+            color: var(--action-orange);
+            margin: 0 1rem;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Point Card */
+        .point-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), #3B82F6);
+            color: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Points List */
+        .points-list {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .points-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .points-list::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 3px;
+        }
+
+        .points-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .point-item:hover {
+            border-color: var(--primary-blue);
+            background: rgba(30, 64, 175, 0.05);
+            transform: translateX(5px);
+        }
+
+        .point-item.selected {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .point-item.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 28px;
+            height: 28px;
+            background: var(--success);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .radio-dot {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .point-item.selected .radio-dot {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .point-item.selected .radio-dot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+
+        .point-info {
+            flex: 1;
+        }
+
+        .point-time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .point-time i {
+            color: var(--action-orange);
+        }
+
+        .point-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .point-address {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Sticky Footer */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 2px solid var(--border);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .footer-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .selection-summary {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .summary-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+        }
+
+        .summary-info strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-info span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .btn-continue {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--action-orange), #FF8C5A);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            white-space: nowrap;
+        }
+
+        .btn-continue:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Alert */
+        .alert {
+            max-width: 1600px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .alert-box {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid var(--action-orange);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-box.show {
+            display: flex;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            color: var(--action-orange);
+        }
+
+        .alert-text {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .selection-summary {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-continue {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .route-banner h1 {
+                font-size: 1.5rem;
+            }
+
+            .point-item {
+                padding: 1rem;
+            }
+
+            .point-time {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-bus-alt"></i>
+                BusBooking
+            </div>
+            <div class="breadcrumb">
+                Home > Search > <strong>Select Pickup & Drop Points</strong>
+            </div>
+        </div>
+    </header>
+
+    <!-- Route Header -->
+    <div class="route-header">
+        <div class="route-banner">
+            <h1>
+                <span id="fromCity">Hyderabad</span>
+                <i class="fas fa-arrow-right route-arrow"></i>
+                <span id="toCity">Bangalore</span>
+            </h1>
+            <p>Select your convenient pickup and drop points</p>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert">
+        <div class="alert-box" id="alertBox">
+            <i class="fas fa-exclamation-circle alert-icon"></i>
+            <span class="alert-text" id="alertText"></span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Pickup Points -->
+        <div class="point-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <div class="card-title">Pickup Point</div>
+                    <div class="card-subtitle">Select where you'll board the bus</div>
+                </div>
+            </div>
+            <div class="points-list" id="pickupPointsList">
+                <!-- Loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Drop Points -->
+        <div class="point-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-map-pin"></i>
+                </div>
+                <div>
+                    <div class="card-title">Drop Point</div>
+                    <div class="card-subtitle">Select where you'll get down</div>
+                </div>
+            </div>
+            <div class="points-list" id="dropPointsList">
+                <!-- Loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Footer -->
+    <div class="sticky-footer">
+        <div class="footer-container">
+            <div class="selection-summary">
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="summary-info">
+                        <strong>Pickup Point</strong>
+                        <span id="selectedPickup">Not selected</span>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                    <div class="summary-info">
+                        <strong>Drop Point</strong>
+                        <span id="selectedDrop">Not selected</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-continue" id="continueBtn" disabled>
+                Continue to Seat Selection
+            </button>
+        </div>
+    </div>
+
+    <script>
+
+        /* ===============================
+   PREVENT BACK NAV BREAK
+================================ */
+window.addEventListener('popstate', function () {
+    alert('Going back will cancel your booking.');
+    sessionStorage.clear();
+    window.location.href = 'booking.html';
+});
+
+history.pushState(null, null, location.href);
+
+        /* ===============================
+   READ ROUTE FROM URL
+================================ */
+const params = new URLSearchParams(window.location.search);
+const fromCity = params.get('from');
+const toCity = params.get('to');
+
+if (!fromCity || !toCity) {
+    alert('Route not found. Please select a route again.');
+    window.location.href = 'booking.html';
+}
+
+/* Create route key like "Goa-Mumbai" */
+const currentRoute = `${fromCity}-${toCity}`;
+// STEP 3: Update route header cities (FROM & TO)
+document.getElementById('fromCity').textContent = fromCity;
+document.getElementById('toCity').textContent = toCity;
+
+        // Route Points Data for 15 Routes
+        const routePoints = {
+            'Hyderabad-Bangalore': {
+                pickup: [
+                    { time: '21:00', name: 'Ameerpet Metro Station', address: 'Near Ameerpet Metro, Main Road' },
+                    { time: '21:30', name: 'Kukatpally', address: 'JNTU Road, Opposite KPHB' },
+                    { time: '22:00', name: 'Secunderabad Railway Station', address: 'Station Road, Platform 1 Parking' },
+                    { time: '22:30', name: 'Shamshabad Airport', address: 'Departure Terminal Entry Gate' }
+                ],
+                drop: [
+                    { time: '05:30', name: 'Silk Board Junction', address: 'Hosur Main Road Junction' },
+                    { time: '06:00', name: 'Electronic City', address: 'Phase 1, Main Flyover' },
+                    { time: '06:30', name: 'Majestic Bus Stand', address: 'Platform 15, KSRTC Stand' },
+                    { time: '07:00', name: 'Whitefield', address: 'ITPL Main Road' }
+                ]
+            },
+            'Bangalore-Hyderabad': {
+                pickup: [
+                    { time: '21:00', name: 'Silk Board Junction', address: 'Hosur Main Road Junction' },
+                    { time: '21:30', name: 'Electronic City', address: 'Phase 1, Main Flyover' },
+                    { time: '22:00', name: 'Majestic Bus Stand', address: 'Platform 15, KSRTC Stand' },
+                    { time: '22:30', name: 'Whitefield', address: 'ITPL Main Road' }
+                ],
+                drop: [
+                    { time: '05:30', name: 'Ameerpet Metro Station', address: 'Near Ameerpet Metro, Main Road' },
+                    { time: '06:00', name: 'Kukatpally', address: 'JNTU Road, Opposite KPHB' },
+                    { time: '06:30', name: 'Secunderabad Railway Station', address: 'Station Road, Platform 1 Parking' },
+                    { time: '07:00', name: 'Shamshabad Airport', address: 'Departure Terminal Entry Gate' }
+                ]
+            },
+            'Mumbai-Goa': {
+                pickup: [
+                    { time: '18:00', name: 'Borivali Station', address: 'East Side, Platform Parking' },
+                    { time: '18:30', name: 'Dadar TT', address: 'Near Shivaji Park' },
+                    { time: '19:00', name: 'Panvel', address: 'Highway Junction, Near Toll' },
+                    { time: '19:30', name: 'Vashi', address: 'Sector 17, Main Road' }
+                ],
+                drop: [
+                    { time: '06:00', name: 'Panjim Bus Stand', address: 'KTC Bus Stand, Platform 3' },
+                    { time: '06:30', name: 'Mapusa', address: 'Main Market, Bus Stop' },
+                    { time: '07:00', name: 'Margao', address: 'Railway Station Road' },
+                    { time: '07:30', name: 'Calangute', address: 'Beach Road Junction' }
+                ]
+            },
+            'Goa-Mumbai': {
+                pickup: [
+                    { time: '18:00', name: 'Panjim Bus Stand', address: 'KTC Bus Stand, Platform 3' },
+                    { time: '18:30', name: 'Mapusa', address: 'Main Market, Bus Stop' },
+                    { time: '19:00', name: 'Margao', address: 'Railway Station Road' },
+                    { time: '19:30', name: 'Calangute', address: 'Beach Road Junction' }
+                ],
+                drop: [
+                    { time: '06:00', name: 'Borivali Station', address: 'East Side, Platform Parking' },
+                    { time: '06:30', name: 'Dadar TT', address: 'Near Shivaji Park' },
+                    { time: '07:00', name: 'Panvel', address: 'Highway Junction, Near Toll' },
+                    { time: '07:30', name: 'Vashi', address: 'Sector 17, Main Road' }
+                ]
+            },
+            'Delhi-Jaipur': {
+                pickup: [
+                    { time: '06:00', name: 'Kashmere Gate ISBT', address: 'Platform 8, AC Section' },
+                    { time: '06:30', name: 'Dhaula Kuan', address: 'Metro Station, Parking Area' },
+                    { time: '07:00', name: 'Gurgaon Sector 14', address: 'Near City Centre' },
+                    { time: '07:30', name: 'Manesar Toll', address: 'Delhi-Jaipur Highway' }
+                ],
+                drop: [
+                    { time: '11:00', name: 'Sindhi Camp Bus Stand', address: 'Platform 4, Main Stand' },
+                    { time: '11:30', name: 'Jaipur Railway Station', address: 'Station Road Parking' },
+                    { time: '12:00', name: 'MI Road', address: 'Near Panch Batti Circle' },
+                    { time: '12:30', name: 'Mansarovar', address: 'Sector 5, Main Market' }
+                ]
+            }
+        };
+if (!routePoints[currentRoute]) {
+    showAlert('Selected route is temporarily unavailable');
+    setTimeout(() => {
+        window.location.href = 'booking.html';
+    }, 2000);
+}
+
+        // Current route (from URL params or default)
+        // let currentRoute = 'Hyderabad-Bangalore';
+        let selectedPickupPoint = null;
+        let selectedDropPoint = null;
+
+        // Load Points
+        function loadPoints() {
+            const route = routePoints[currentRoute];
+            if (!route) return;
+
+            // Load pickup points
+            const pickupList = document.getElementById('pickupPointsList');
+            pickupList.innerHTML = route.pickup.map((point, index) => `
+                <div class="point-item" onclick="selectPoint('pickup', ${index})">
+                    <div class="radio-dot"></div>
+                    <div class="point-info">
+                        <div class="point-time">
+                            <i class="fas fa-clock"></i>
+                            ${point.time}
+                        </div>
+                        <div class="point-name">${point.name}</div>
+                        <div class="point-address">${point.address}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Load drop points
+            const dropList = document.getElementById('dropPointsList');
+            dropList.innerHTML = route.drop.map((point, index) => `
+                <div class="point-item" onclick="selectPoint('drop', ${index})">
+                    <div class="radio-dot"></div>
+                    <div class="point-info">
+                        <div class="point-time">
+                            <i class="fas fa-clock"></i>
+                            ${point.time}
+                        </div>
+                        <div class="point-name">${point.name}</div>
+                        <div class="point-address">${point.address}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select Point
+        function selectPoint(type, index) {
+            const listId = type === 'pickup' ? 'pickupPointsList' : 'dropPointsList';
+            const list = document.getElementById(listId);
+            const items = list.querySelectorAll('.point-item');
+
+            // Remove previous selection
+            items.forEach(item => item.classList.remove('selected'));
+
+            // Add new selection
+            items[index].classList.add('selected');
+
+            // Store selection
+            const route = routePoints[currentRoute];
+            const points = type === 'pickup' ? route.pickup : route.drop;
+            const selectedPoint = points[index];
+
+            if (type === 'pickup') {
+                selectedPickupPoint = selectedPoint;
+                document.getElementById('selectedPickup').textContent = 
+                    `${selectedPoint.name} - ${selectedPoint.time}`;
+            } else {
+                selectedDropPoint = selectedPoint;
+                document.getElementById('selectedDrop').textContent = 
+                    `${selectedPoint.name} - ${selectedPoint.time}`;
+            }
+
+            updateContinueButton();
+        }
+
+        // Update Continue Button
+        function updateContinueButton() {
+            const btn = document.getElementById('continueBtn');
+            btn.disabled = !(selectedPickupPoint && selectedDropPoint);
+        }
+
+        // // Continue Button Click
+        // document.getElementById('continueBtn').addEventListener('click', () => {
+        //     if (!selectedPickupPoint || !selectedDropPoint) {
+        //         showAlert('Please select both pickup and drop points to continue');
+        //         return;
+        //     }
+
+        //     alert(`Selected:\nPickup: ${selectedPickupPoint.name} at ${selectedPickupPoint.time}\nDrop: ${selectedDropPoint.name} at ${selectedDropPoint.time}\n\nProceeding to seat selection...`);
+        //     // In production: window.location.href = '/seat-selection';
+        // });
+
+        // Continue Button Click
+document.getElementById('continueBtn').addEventListener('click', () => {
+    if (!selectedPickupPoint || !selectedDropPoint) {
+        showAlert('Please select both pickup and drop points to continue');
+        return;
+    }
+
+    // Store pickup/drop points
+    sessionStorage.setItem('pickupPoint', JSON.stringify(selectedPickupPoint));
+    sessionStorage.setItem('dropPoint', JSON.stringify(selectedDropPoint));
+    
+    window.location.href = 'passenger.html';
+});
+
+        // Show Alert
+        function showAlert(message) {
+            const alertBox = document.getElementById('alertBox');
+            const alertText = document.getElementById('alertText');
+            alertText.textContent = message;
+            alertBox.classList.add('show');
+
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 4000);
+        }
+
+        // Change Route (for testing)
+        function changeRoute(route) {
+            currentRoute = route;
+            const [from, to] = route.split('-');
+            document.getElementById('fromCity').textContent = from;
+            document.getElementById('toCity').textContent = to;
+            
+            // Reset selections
+            selectedPickupPoint = null;
+            selectedDropPoint = null;
+            document.getElementById('selectedPickup').textContent = 'Not selected';
+            document.getElementById('selectedDrop').textContent = 'Not selected';
+            
+            loadPoints();
+            updateContinueButton();
+        }
+
+        // Initialize
+        loadPoints();
+
+        // Add all other routes for testing
+        console.log('Available routes:', Object.keys(routePoints));
+        console.log('To change route, use: changeRoute("Mumbai-Goa")');
+    </script>
+</body>
+</html>
