@@ -4,11 +4,8 @@ A simple bus booking application with a static frontend and a Node.js + Express 
 
 ## Preview
 
-![Home screen](assets/screenshots/home-hero.svg)
-
-## Architecture
-
-![Architecture diagram](assets/diagrams/architecture.svg)
+### Home screen
+<img width="1893" height="863" alt="Screenshot 2026-01-29 181652" src="https://github.com/user-attachments/assets/7cd23e7d-c164-412e-b9a6-aafd3b97df43" />
 
 ## Features
 
