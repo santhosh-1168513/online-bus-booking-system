@@ -6,6 +6,8 @@
     <title>Select Pickup & Drop Points - BusBooking</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+
     <style>
         * {
             margin: 0;
@@ -503,13 +505,78 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-continue" id="continueBtn" disabled>
-                Continue to Seat Selection
-            </button>
+            <!-- <button class="btn-continue" id="continueBtn" disabled>
+                Continue to payment
+            </button> -->
+            <button id="continueBtn" onclick="proceedToPayment()">Continue to Payment</button>
         </div>
     </div>
 
     <script>
+
+
+
+
+
+
+
+
+// In pickup-drop.html (YOUR EXISTING PAGE)
+function proceedToPayment() {
+    // Get selected pickup and drop points
+    const pickupPoint = document.querySelector('input[name="pickup"]:checked')?.value ||
+                       document.getElementById('pickupSelect')?.value;
+    const dropPoint = document.querySelector('input[name="drop"]:checked')?.value ||
+                     document.getElementById('dropSelect')?.value;
+    
+    if (!pickupPoint || !dropPoint) {
+        alert('Please select both pickup and drop points');
+        return;
+    }
+
+    // Get booking data from previous page
+    const bookingData = JSON.parse(localStorage.getItem('tempBookingData') || '{}');
+    
+    // Get route info from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const from = urlParams.get('from') || bookingData.from || 'Hyderabad';
+    const to = urlParams.get('to') || bookingData.to || 'Bangalore';
+    const date = urlParams.get('date') || bookingData.date;
+    const seats = urlParams.get('seats') || bookingData.seats;
+    
+    // Build payment URL with all details
+    const paymentUrl = `payment.html?` +
+        `from=${encodeURIComponent(from)}&` +
+        `to=${encodeURIComponent(to)}&` +
+        `date=${encodeURIComponent(date)}&` +
+        `busType=AC Sleeper&` +
+        `seats=${encodeURIComponent(seats)}&` +
+        `passengers=${bookingData.passengers || 1}&` +
+        `price=${bookingData.pricePerSeat || 600}&` +
+        `baseFare=${bookingData.baseFare || 600}&` +
+        `pickup=${encodeURIComponent(pickupPoint)}&` +
+        `drop=${encodeURIComponent(dropPoint)}`;
+    
+    window.location.href = paymentUrl;
+}
+
+// Hook up to your continue/proceed button
+document.getElementById('continueBtn')?.addEventListener('click', proceedToPayment);
+// OR whatever your button ID is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /* ===============================
    PREVENT BACK NAV BREAK
@@ -750,7 +817,7 @@ document.getElementById('continueBtn').addEventListener('click', () => {
             document.getElementById('selectedDrop').textContent = 'Not selected';
             
             loadPoints();
-            updateContinueButton();
+            updateContinueButton();cd
         }
 
         // Initialize

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Booking Confirmed - BusBooking</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #F9FAFB;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.success {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.success h1 {
+    color: #10B981;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+}
+
+.section h3 {
+    border-bottom: 2px solid #E5E7EB;
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: .4rem 0;
+}
+
+.passenger {
+    padding: .5rem;
+    background: #F3F4F6;
+    margin-bottom: .5rem;
+    border-radius: 6px;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+button {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.download {
+    background: #1E40AF;
+    color: #fff;
+}
+
+.home {
+    background: #10B981;
+    color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="success">
+        <h1>✅ Payment Successful</h1>
+        <p>Your booking has been confirmed</p>
+        <strong id="bookingId"></strong>
+    </div>
+
+    <div class="section">
+        <h3>Journey Details</h3>
+        <div class="row"><span>From</span><span id="from"></span></div>
+        <div class="row"><span>To</span><span id="to"></span></div>
+        <div class="row"><span>Pickup</span><span id="pickup"></span></div>
+        <div class="row"><span>Drop</span><span id="drop"></span></div>
+    </div>
+
+    <div class="section">
+        <h3>Passengers</h3>
+        <div id="passengerList"></div>
+    </div>
+
+    <div class="section">
+        <h3>Fare Summary</h3>
+        <div class="row"><span>Base Fare</span><span id="baseFare"></span></div>
+        <div class="row"><span>Tax</span><span id="tax"></span></div>
+        <div class="row"><span>Discount</span><span id="discount"></span></div>
+        <div class="row"><strong>Total Paid</strong><strong id="total"></strong></div>
+    </div>
+
+    <div class="actions">
+        <button class="download" onclick="downloadPDF()">Download Ticket PDF</button>
+        <button class="home" onclick="goHome()">Go to Home</button>
+    </div>
+</div>
+
+<script>
+const booking = JSON.parse(sessionStorage.getItem('final_booking'));
+
+if (!booking) {
+    alert("No booking found");
+    window.location.href = 'index.html';
+}
+
+document.getElementById('bookingId').textContent = "Booking ID: " + booking.bookingId;
+document.getElementById('from').textContent = booking.pickupPoint?.name || '-';
+document.getElementById('to').textContent = booking.dropPoint?.name || '-';
+document.getElementById('pickup').textContent = booking.pickupPoint.name + " " + booking.pickupPoint.time;
+document.getElementById('drop').textContent = booking.dropPoint.name + " " + booking.dropPoint.time;
+
+document.getElementById('baseFare').textContent = "₹" + booking.baseFare;
+document.getElementById('tax').textContent = "₹" + booking.tax;
+document.getElementById('discount').textContent = "₹" + booking.discount;
+document.getElementById('total').textContent = "₹" + booking.finalAmount;
+
+const passengerList = document.getElementById('passengerList');
+booking.passengers.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'passenger';
+    div.textContent = `${p.name} | Age: ${p.age} | Gender: ${p.gender} | Seat: ${p.seat}`;
+    passengerList.appendChild(div);
+});
+
+/* =========================
+   PDF DOWNLOAD
+========================= */
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    let y = 20;
+    pdf.setFontSize(16);
+    pdf.text("Bus Booking Ticket", 20, y);
+    y += 10;
+
+    pdf.setFontSize(11);
+    pdf.text(`Booking ID: ${booking.bookingId}`, 20, y); y+=8;
+    pdf.text(`From: ${booking.pickupPoint.name}`, 20, y); y+=6;
+    pdf.text(`To: ${booking.dropPoint.name}`, 20, y); y+=6;
+    pdf.text(`Pickup: ${booking.pickupPoint.time}`, 20, y); y+=6;
+    pdf.text(`Drop: ${booking.dropPoint.time}`, 20, y); y+=10;
+
+    pdf.text("Passengers:", 20, y); y+=6;
+    booking.passengers.forEach(p => {
+        pdf.text(`- ${p.name} (${p.gender}, ${p.age}) Seat: ${p.seat}`, 22, y);
+        y += 6;
+    });
+
+    y += 6;
+    pdf.text(`Base Fare: ₹${booking.baseFare}`, 20, y); y+=6;
+    pdf.text(`Tax: ₹${booking.tax}`, 20, y); y+=6;
+    pdf.text(`Discount: ₹${booking.discount}`, 20, y); y+=6;
+    pdf.text(`Total Paid: ₹${booking.finalAmount}`, 20, y);
+
+    pdf.save(`BusTicket_${booking.bookingId}.pdf`);
+}
+
+function goHome() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>

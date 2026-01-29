@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details - BusBooking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E85A2A;
+            --secondary: #004E89;
+            --success: #10B981;
+            --dark: #0F172A;
+            --gray: #64748B;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .page-header h1 {
+            color: var(--white);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .page-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+
+        /* Main Card */
+        .booking-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        /* Status Banner */
+        .status-banner {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .status-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .booking-id {
+            position: relative;
+            z-index: 1;
+            text-align: right;
+        }
+
+        .booking-id-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .booking-id-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Content Area */
+        .card-content {
+            padding: 2rem;
+        }
+
+        /* Journey Header */
+        .journey-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="none"/><circle cx="2" cy="2" r="1" fill="%23667eea" opacity="0.1"/></svg>');
+            opacity: 0.5;
+        }
+
+        .city {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .city-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .city-name {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .journey-arrow {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .journey-arrow i {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: slideRight 2s ease-in-out infinite;
+        }
+
+        .journey-date {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-section {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .detail-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--dark);
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* Seats Display */
+        .seats-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .seat-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Passengers List */
+        .passenger-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .passenger-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .passenger-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .passenger-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .passenger-name {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+
+        .passenger-details {
+            display: flex;
+            gap: 1.5rem;
+            padding-left: 3.25rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Price Breakdown */
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-row.total {
+            border-bottom: none;
+            border-top: 3px solid var(--primary);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: var(--light);
+        }
+
+        .btn-danger {
+            background: white;
+            color: #DC3545;
+            border: 2px solid #DC3545;
+        }
+
+        .btn-danger:hover {
+            background: #DC3545;
+            color: white;
+        }
+
+        /* Loading State */
+        .loading-container {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* Error State */
+        .error-container {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            color: #DC3545;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideRight {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .journey-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .journey-arrow {
+                transform: rotate(90deg);
+            }
+
+            .city-name {
+                font-size: 1.5rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .status-banner {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .booking-id {
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .action-buttons {
+                display: none;
+            }
+
+            .booking-card {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-ticket-alt"></i> Booking Details</h1>
+            <p>Your complete journey information</p>
+        </div>
+
+        <div id="loadingState" class="loading-container">
+            <div class="spinner"></div>
+            <h2>Loading booking details...</h2>
+        </div>
+
+        <div id="errorState" class="error-container" style="display: none;">
+            <i class="fas fa-exclamation-circle error-icon"></i>
+            <h2>Booking Not Found</h2>
+            <p style="color: var(--gray); margin: 1rem 0;">We couldn't find the booking you're looking for.</p>
+            <button class="btn btn-primary" onclick="window.location.href='booking.html'">
+                <i class="fas fa-home"></i> Back to Home
+            </button>
+        </div>
+
+        <div id="bookingContent" class="booking-card" style="display: none;">
+            <!-- Status Banner -->
+            <div class="status-banner">
+                <div class="status-info">
+                    <div class="status-label">Booking Status</div>
+                    <div class="status-value">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="bookingStatus">Confirmed</span>
+                    </div>
+                </div>
+                <div class="booking-id">
+                    <div class="booking-id-label">Booking ID</div>
+                    <div class="booking-id-value" id="bookingIdDisplay">BUS123456789</div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <!-- Journey Header -->
+                <div class="journey-header">
+                    <div class="city">
+                        <div class="city-label">From</div>
+                        <div class="city-name" id="fromCity">Hyderabad</div>
+                    </div>
+                    <div class="journey-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="journey-date" id="travelDate">28/1/2026</div>
+                    </div>
+                    <div class="city">
+                        <div class="city-label">To</div>
+                        <div class="city-name" id="toCity">Bangalore</div>
+                    </div>
+                </div>
+
+                <!-- Details Grid -->
+                <div class="details-grid">
+                    <!-- Bus Details -->
+                    <div class="detail-section">
+                        <div class="section-title">
+                            <div class="section-icon">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            Bus Details
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bus Type</span>
+                            <span class="detail-value" id="busType">AC Sleeper</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Total Seats</span>
+                            <span class="detail-value" id="totalSeats">2</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Seat Numbers</span>
+                            <div class="detail-value">
+                                <div class="seats-container" id="seatsList">
+                                    <span class="seat-badge">A1</span>
+                                    <span class="seat-badge">A2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pickup & Drop -->
+                    <div class="detail-section">
+                        <div class="section-title">
+                            <div class="section-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            Pickup & Drop
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Pickup Point</span>
+                            <span class="detail-value" id="pickupPoint">Ameerpet (21:00)</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Drop Point</span>
+                            <span class="detail-value" id="dropPoint">Silk Board (05:30)</span>
+                        </div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="detail-section">
+                        <div class="section-title">
+                            <div class="section-icon">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                            Contact Details
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Name</span>
+                            <span class="detail-value" id="contactName">John Doe</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Email</span>
+                            <span class="detail-value" id="contactEmail">john@example.com</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Mobile</span>
+                            <span class="detail-value" id="contactMobile">+91 98765 43210</span>
+                        </div>
+                    </div>
+
+                    <!-- Booking Info -->
+                    <div class="detail-section">
+                        <div class="section-title">
+                            <div class="section-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            Booking Info
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Booking Date</span>
+                            <span class="detail-value" id="bookingDate">28/1/2026</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method</span>
+                            <span class="detail-value" id="paymentMethod">UPI</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Status</span>
+                            <span class="detail-value" style="color: var(--success);">
+                                <i class="fas fa-check-circle"></i> Paid
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passengers -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        Passenger Details
+                    </div>
+                    <div id="passengersList">
+                        <!-- Passengers will be dynamically loaded -->
+                    </div>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        Price Breakdown
+                    </div>
+                    <div class="price-row">
+                        <span>Base Fare</span>
+                        <span id="baseFare">₹1200</span>
+                    </div>
+                    <div class="price-row">
+                        <span>GST (5%)</span>
+                        <span id="gst">₹60</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Service Fee</span>
+                        <span id="serviceFee">₹40</span>
+                    </div>
+                    <div class="price-row" id="insuranceRow" style="display: none;">
+                        <span>Travel Insurance</span>
+                        <span id="insurance">₹0</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total Amount</span>
+                        <span id="totalAmount">₹1300</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="downloadTicket()">
+                        <i class="fas fa-download"></i> Download Ticket
+                    </button>
+                    <button class="btn btn-secondary" onclick="printTicket()">
+                        <i class="fas fa-print"></i> Print Ticket
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='booking.html'">
+                        <i class="fas fa-home"></i> Back to Home
+                    </button>
+                    <button class="btn btn-danger" onclick="cancelBooking()" id="cancelBtn">
+                        <i class="fas fa-times-circle"></i> Cancel Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        let bookingData = null;
+
+        // Get booking ID from URL
+        function getBookingIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // Load booking data
+        async function loadBookingDetails() {
+            const bookingId = getBookingIdFromURL();
+            
+            if (!bookingId) {
+                showError();
+                return;
+            }
+
+            try {
+                // Try to get from API
+                const token = localStorage.getItem('token');
+                
+                if (token) {
+                    const response = await fetch(`${API_URL}/bookings/${bookingId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        bookingData = data.booking;
+                        displayBookingDetails(bookingData);
+                        return;
+                    }
+                }
+
+                // Fallback: Try to get from sessionStorage (for demo)
+                const sessionData = JSON.parse(sessionStorage.getItem('currentBooking') || '{}');
+                if (sessionData.bookingId === bookingId) {
+                    bookingData = sessionData;
+                    displayBookingDetails(bookingData);
+                    return;
+                }
+
+                // If not found anywhere
+                showError();
+
+            } catch (error) {
+                console.error('Error loading booking:', error);
+                
+                // Demo fallback data
+                bookingData = createDemoBooking(bookingId);
+                displayBookingDetails(bookingData);
+            }
+        }
+
+        // Create demo booking for testing
+        function createDemoBooking(bookingId) {
+            return {
+                bookingId: bookingId || 'BUS' + Date.now(),
+                from: 'Hyderabad',
+                to: 'Bangalore',
+                travelDate: '29/1/2026',
+                busType: 'AC Sleeper',
+                seats: [
+                    { seatNumber: 'A1', price: 600 },
+                    { seatNumber: 'A2', price: 600 }
+                ],
+                pickupPoint: 'Ameerpet Metro Station (21:00)',
+                dropPoint: 'Silk Board Junction (05:30)',
+                passengers: [
+                    { name: 'John Doe', age: 30, gender: 'Male', seat: 'A1' },
+                    { name: 'Jane Doe', age: 28, gender: 'Female', seat: 'A2' }
+                ],
+                contactDetails: {
+                    mobile: '9876543210',
+                    email: 'john@example.com'
+                },
+                baseFare: 1200,
+                gst: 60,
+                serviceFee: 40,
+                insurance: 0,
+                totalPrice: 1300,
+                paymentMethod: 'upi',
+                bookingStatus: 'confirmed',
+                bookingDate: new Date().toLocaleDateString('en-IN')
+            };
+        }
+
+        // Display booking details
+        function displayBookingDetails(booking) {
+            // Hide loading, show content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('bookingContent').style.display = 'block';
+
+            // Status and ID
+            document.getElementById('bookingStatus').textContent = 
+                booking.bookingStatus.charAt(0).toUpperCase() + booking.bookingStatus.slice(1);
+            document.getElementById('bookingIdDisplay').textContent = booking.bookingId;
+
+            // Journey
+            document.getElementById('fromCity').textContent = booking.from;
+            document.getElementById('toCity').textContent = booking.to;
+            document.getElementById('travelDate').textContent = booking.travelDate;
+
+            // Bus details
+            document.getElementById('busType').textContent = booking.busType;
+            
+            const seats = Array.isArray(booking.seats) ? booking.seats : [];
+            document.getElementById('totalSeats').textContent = seats.length;
+            
+            const seatsList = document.getElementById('seatsList');
+            seatsList.innerHTML = seats.map(seat => 
+                `<span class="seat-badge">${seat.seatNumber || seat}</span>`
+            ).join('');
+
+            // Pickup & Drop
+            document.getElementById('pickupPoint').textContent = booking.pickupPoint;
+            document.getElementById('dropPoint').textContent = booking.dropPoint;
+
+            // Contact
+            const contact = booking.contactDetails || booking.passengerDetails || {};
+            document.getElementById('contactName').textContent = 
+                contact.name || booking.passengerDetails?.name || 'N/A';
+            document.getElementById('contactEmail').textContent = 
+                contact.email || booking.passengerDetails?.email || 'N/A';
+            document.getElementById('contactMobile').textContent = 
+                contact.mobile || contact.phone || 'N/A';
+
+            // Booking info
+            document.getElementById('bookingDate').textContent = 
+                booking.bookingDate || new Date(booking.createdAt).toLocaleDateString('en-IN') || 'N/A';
+            document.getElementById('paymentMethod').textContent = 
+                (booking.paymentMethod || 'upi').toUpperCase();
+
+            // Passengers
+            const passengersList = document.getElementById('passengersList');
+            const passengers = booking.passengers || [];
+            
+            if (passengers.length > 0 && typeof passengers[0] === 'object') {
+                passengersList.innerHTML = passengers.map(p => `
+                    <div class="passenger-card">
+                        <div class="passenger-header">
+                            <div class="passenger-avatar">${p.name.charAt(0).toUpperCase()}</div>
+                            <div class="passenger-name">${p.name}</div>
+                        </div>
+                        <div class="passenger-details">
+                            <span><i class="fas fa-birthday-cake"></i> ${p.age} years</span>
+                            <span><i class="fas fa-${p.gender === 'Male' ? 'mars' : 'venus'}"></i> ${p.gender}</span>
+                            ${p.seat ? `<span><i class="fas fa-chair"></i> Seat ${p.seat}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                passengersList.innerHTML = `
+                    <div class="passenger-card">
+                        <div class="passenger-header">
+                            <div class="passenger-avatar">${(contact.name || 'P').charAt(0).toUpperCase()}</div>
+                            <div class="passenger-name">${contact.name || 'Passenger'}</div>
+                        </div>
+                        <div class="passenger-details">
+                            <span><i class="fas fa-chair"></i> ${seats.length} seat(s)</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Price breakdown
+            document.getElementById('baseFare').textContent = `₹${booking.baseFare}`;
+            document.getElementById('gst').textContent = `₹${booking.gst || 0}`;
+            document.getElementById('serviceFee').textContent = `₹${booking.serviceFee || 0}`;
+            
+            if (booking.insurance && booking.insurance > 0) {
+                document.getElementById('insuranceRow').style.display = 'flex';
+                document.getElementById('insurance').textContent = `₹${booking.insurance}`;
+            }
+            
+            document.getElementById('totalAmount').textContent = `₹${booking.totalPrice}`;
+
+            // Hide cancel button if already cancelled
+            if (booking.bookingStatus === 'cancelled') {
+                document.getElementById('cancelBtn').style.display = 'none';
+            }
+        }
+
+        // Show error state
+        function showError() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+        }
+
+        // Download ticket as PDF
+        function downloadTicket() {
+            if (!bookingData) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Colors
+            const primaryColor = [255, 107, 53];
+            const darkColor = [15, 23, 42];
+            const grayColor = [100, 116, 139];
+
+            // Header
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(28);
+            doc.setFont(undefined, 'bold');
+            doc.text('BusBooking', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Booking ID: ${bookingData.bookingId}`, 105, 32, { align: 'center' });
+
+            // Journey Details
+            let y = 55;
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...darkColor);
+            doc.text(`${bookingData.from} → ${bookingData.to}`, 105, y, { align: 'center' });
+            
+            y += 10;
+            doc.setFontSize(11);
+            doc.setTextColor(...grayColor);
+            doc.text(`Travel Date: ${bookingData.travelDate}`, 105, y, { align: 'center' });
+
+            // Booking Details
+            y += 20;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...darkColor);
+            doc.text('Booking Details', 20, y);
+
+            y += 10;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(...grayColor);
+            
+            const details = [
+                `Bus Type: ${bookingData.busType}`,
+                `Seats: ${bookingData.seats.map(s => s.seatNumber || s).join(', ')}`,
+                `Pickup: ${bookingData.pickupPoint}`,
+                `Drop: ${bookingData.dropPoint}`,
+                `Total Passengers: ${bookingData.seats.length}`
+            ];
+
+            details.forEach(detail => {
+                doc.text(detail, 20, y);
+                y += 7;
+            });
+
+            // Passengers
+            if (bookingData.passengers && bookingData.passengers.length > 0 && typeof bookingData.passengers[0] === 'object') {
+                y += 10;
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(...darkColor);
+                doc.text('Passengers', 20, y);
+
+                y += 10;
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...grayColor);
+
+                bookingData.passengers.forEach((p, i) => {
+                    doc.text(`${i + 1}. ${p.name} - ${p.age} years, ${p.gender}${p.seat ? ` (Seat ${p.seat})` : ''}`, 20, y);
+                    y += 7;
+                });
+            }
+
+            // Price Breakdown
+            y += 10;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...darkColor);
+            doc.text('Price Details', 20, y);
+
+            y += 10;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(...grayColor);
+
+            const priceDetails = [
+                [`Base Fare:`, `₹${bookingData.baseFare}`],
+                [`GST (5%):`, `₹${bookingData.gst}`],
+                [`Service Fee:`, `₹${bookingData.serviceFee}`]
+            ];
+
+            if (bookingData.insurance > 0) {
+                priceDetails.push([`Insurance:`, `₹${bookingData.insurance}`]);
+            }
+
+            priceDetails.forEach(([label, value]) => {
+                doc.text(label, 20, y);
+                doc.text(value, 190, y, { align: 'right' });
+                y += 7;
+            });
+
+            // Total
+            y += 5;
+            doc.setFillColor(247, 249, 252);
+            doc.rect(20, y - 5, 170, 12, 'F');
+            
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...primaryColor);
+            doc.text('Total Amount:', 25, y + 3);
+            doc.text(`₹${bookingData.totalPrice}`, 185, y + 3, { align: 'right' });
+
+            // Footer
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 270, 210, 27, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(9);
+            doc.text('Thank you for choosing BusBooking!', 105, 280, { align: 'center' });
+            doc.text('For support: support@busbooking.com | +91 1800-XXX-XXXX', 105, 287, { align: 'center' });
+
+            doc.save(`Booking_${bookingData.bookingId}.pdf`);
+        }
+
+        // Print ticket
+        function printTicket() {
+            window.print();
+        }
+
+        // Cancel booking
+        async function cancelBooking() {
+            if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                
+                if (token) {
+                    const response = await fetch(`${API_URL}/bookings/${bookingData.bookingId}/cancel`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        alert('Booking cancelled successfully!');
+                        bookingData.bookingStatus = 'cancelled';
+                        displayBookingDetails(bookingData);
+                        return;
+                    }
+                }
+
+                // Demo mode
+                alert('Booking cancelled successfully! (Demo Mode)');
+                bookingData.bookingStatus = 'cancelled';
+                displayBookingDetails(bookingData);
+
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                alert('Failed to cancel booking. Please try again.');
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', loadBookingDetails);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Bus Booking - Book Safe & Comfortable Bus Journeys</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+       .autocomplete {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 99;
+}
+.autocomplete div {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+.autocomplete div:hover {
+  background: var(--light);
+}
+
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E40AF;
+            --action-orange: #FF6B35;
+            --success: #10B981;
+            --dark: #1F2937;
+            --gray: #6B7280;
+            --light: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+            --primary: #FF6B35;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Top Navigation */
+        .navbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active {
+            color: var(--action-orange);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-icon:hover {
+            color: var(--primary-blue);
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .profile-btn:hover {
+            background: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(59, 130, 246, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,197.3C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem 6rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin-bottom: 3rem;
+        }
+
+        /* Search Bar */
+        .search-card {
+            max-width: 1200px;
+            margin: -3rem auto 0;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.5fr auto;
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2.5rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .btn-search {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--action-orange), #FF8C5A);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            max-width: 1600px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .facility-item, .action-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .facility-item:last-child, .action-item:last-child {
+            border-bottom: none;
+        }
+
+        .facility-icon, .action-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(30, 64, 175, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .action-item {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-item:hover {
+            background: var(--light);
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 8px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(30, 64, 175, 0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Right Content Area */
+        .content-area {
+            min-height: 600px;
+        }
+
+        /* Offer Filter Tabs */
+        .filter-tabs {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 1rem;
+            min-width: fit-content;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .tab-btn.active {
+            background: var(--action-orange);
+            border-color: var(--action-orange);
+            color: var(--white);
+        }
+
+        /* Bus Routes Section */
+        .routes-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .scroll-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .scroll-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scroll-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        /* Routes Grid */
+        .routes-container {
+            /* overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent; */
+             max-height: 758px;           /* controls visible height */
+             overflow-y: auto;
+             padding-right: 10px; /* 8px scrollbar width + 2px spacing */
+             /* new changes*/
+             overflow-x: hidden;
+             display: block;
+        }
+
+        .routes-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .routes-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .routes-container::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .routes-grid {
+            /* display: grid;
+            grid-template-columns: repeat(15, 280px);
+            gap: 1.5rem;
+            padding-bottom: 1rem; */
+
+            /* display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 1rem; */
+            /* 2 column grid */
+            display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    gap: 16px;
+        }
+
+        /* Route Card */
+        .route-card {
+            /* background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer; */
+            display: flex;
+            gap: 1.25rem;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--white);
+            transition: all 0.3s;
+            width: 100%;
+            min-width: 160px;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--primary-blue);
+        }
+
+        .route-image {
+            width: 70px; /*100%*/
+            height: 70px; /*140px*/
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(59, 130, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+            color: var(--primary-blue);
+        }
+
+        .route-details {
+            /* padding: 1.25rem; */
+            flex: 1;
+           display: flex;
+           flex-direction: column;
+        }
+
+        .route-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .route-arrow {
+            color: var(--action-orange);
+        }
+
+        .route-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .meta-item i {
+            color: var(--primary-blue);
+            width: 16px;
+        }
+
+        .route-footer {
+            /* display: flex;
+            justify-content: space-between;
+            align-items: center; */
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .route-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--action-orange);
+        }
+
+        .btn-select {
+            padding: 0.6rem 1.5rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-select:hover {
+            background: #1E40AF;
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .routes-grid {
+                grid-template-columns: repeat(15, 260px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .routes-grid {
+                grid-template-columns: repeat(15, 240px);
+            }
+        }
+
+
+        @media (max-width: 768px) {
+    .route-card {
+        flex-direction: row;
+    }
+    .routes-grid {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    .route-image {
+        width: 100%;
+        height: 120px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bus-alt"></i>
+                <span>BusBooking</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="managebooking.html" class="nav-link">Manage Booking</a></li>
+                <li><a href="offers.html" class="nav-link">Offers</a></li>
+                <li><a href="contact.html" class="nav-link">Contact / Support</a></li>
+            </ul>
+            <div class="nav-actions">
+                <i class="fas fa-search nav-icon"></i>
+                <i class="fas fa-bell nav-icon"></i>
+                <div class="profile-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Easy Bus Booking!</h1>
+            <p>Book safe, comfortable, and affordable bus journeys</p>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-card">
+        <form class="search-form" id="searchForm">
+            <div class="form-group">
+                <label class="form-label">From</label>
+                <i class="fas fa-map-marker-alt input-icon"></i>
+                <input type="text" class="form-input" placeholder="Enter departure city" id="fromCity">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">To</label>
+                <i class="fas fa-map-marker-alt input-icon"></i>
+                <input type="text" class="form-input" placeholder="Enter arrival city" id="toCity">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <i class="fas fa-calendar input-icon"></i>
+                <input type="date" class="form-input" id="travelDate">
+            </div>
+            <button type="submit" class="btn-search">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Facilities -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">
+                    <i class="fas fa-star"></i>
+                    Facilities
+                </h3>
+                <div class="facility-item">
+                    <div class="facility-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <span>Wi-Fi</span>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-icon">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <span>Charging</span>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <span>AC</span>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <span>Refreshments</span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h3>
+                <div class="action-item" onclick="alert('Show/Download Ticket')">
+                    <div class="action-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <span>Show / Download Ticket</span>
+                </div>
+                <div class="action-item" onclick="alert('Cancel Booking')">
+                    <div class="action-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <span>Cancel Booking</span>
+                </div>
+                <div class="action-item" onclick="alert('Change Travel Date')">
+                    <div class="action-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <span>Change Travel Date</span>
+                </div>
+                <div class="action-item" onclick="alert('Refund Status')">
+                    <div class="action-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <span>Refund Status</span>
+                </div>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">
+                    <i class="fas fa-headset"></i>
+                    Contact Support
+                </h3>
+                <div class="contact-item" onclick="alert('Calling support...')">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <span>Call Support</span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="contact-item" onclick="alert('Opening chat...')">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <span>Chat Support</span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="contact-item" onclick="alert('Opening email form...')">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <span>Email Support</span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Content Area -->
+        <main class="content-area">
+            <!-- Offer Filter Tabs -->
+            <div class="filter-tabs">
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-filter="all">
+                       <a href="offer.html"> <i class="fas fa-fire"></i> All Offers</a>
+                    </button>
+                    <button class="tab-btn" data-filter="bus">
+                        <a href="offer.html"><i class="fas fa-bus"></i> Bus Offers</a>
+                    </button>
+                    <button class="tab-btn" data-filter="bank">
+                        <a href="offer.html"><i class="fas fa-credit-card"></i> Bank Offers</a>
+                    </button>
+                    <button class="tab-btn" data-filter="app">
+                        <a href="offer.html"><i class="fas fa-mobile-alt"></i> App Only</a>
+                    </button>
+                    <button class="tab-btn" data-filter="student">
+                       <a href="offer.html"> <i class="fas fa-graduation-cap"></i> Student</a>
+                    </button>
+                    <button class="tab-btn" data-filter="festival">
+                        <a href="offer.html"><i class="fas fa-star"></i> Festival</a>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Popular Bus Routes -->
+            <div class="routes-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Popular Bus Routes</h2>
+                        <p class="section-subtitle">Best prices on frequently traveled routes</p>
+                    </div>
+                    <div class="scroll-controls">
+                        <button class="scroll-btn" onclick="scrollRoutes('left')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="scroll-btn" onclick="scrollRoutes('right')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="routes-container" id="routesContainer">
+                    <div class="routes-grid" id="routesGrid">
+                        <!-- Routes loaded by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+                    <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+/    <!-- ai code -->
+<!-- <script>
+        // Route Data
+        const routes = [
+            { from: 'Hyderabad', to: 'Bangalore', time: '08:00 AM', type: 'AC Sleeper', price: 1200 },
+            { from: 'Bangalore', to: 'Hyderabad', time: '09:30 PM', type: 'AC Seater', price: 1150 },
+            { from: 'Mumbai', to: 'Goa', time: '07:00 PM', type: 'AC Sleeper', price: 1500 },
+            { from: 'Goa', to: 'Mumbai', time: '08:30 PM', type: 'AC Sleeper', price: 1450 },
+            { from: 'Delhi', to: 'Jaipur', time: '06:00 AM', type: 'AC Seater', price: 800 },
+            { from: 'Jaipur', to: 'Delhi', time: '05:30 PM', type: 'AC Seater', price: 750 },
+            { from: 'Chennai', to: 'Bangalore', time: '10:00 PM', type: 'AC Sleeper', price: 900 },
+            { from: 'Bangalore', to: 'Chennai', time: '11:00 PM', type: 'AC Sleeper', price: 950 },
+            { from: 'Pune', to: 'Mumbai', time: '07:30 AM', type: 'AC Seater', price: 450 },
+            { from: 'Mumbai', to: 'Pune', time: '06:00 PM', type: 'AC Seater', price: 500 },
+            { from: 'Hyderabad', to: 'Chennai', time: '09:00 PM', type: 'AC Sleeper', price: 1100 },
+            { from: 'Chennai', to: 'Hyderabad', time: '08:00 PM', type: 'AC Sleeper', price: 1050 },
+            { from: 'Delhi', to: 'Chandigarh', time: '08:00 AM', type: 'AC Seater', price: 600 },
+            { from: 'Bangalore', to: 'Coimbatore', time: '10:30 PM', type: 'AC Sleeper', price: 850 },
+            { from: 'Hyderabad', to: 'Vijayawada', time: '07:00 AM', type: 'AC Seater', price: 650 }
+        ];
+
+        // Render Routes
+        function renderRoutes() {
+            const grid = document.getElementById('routesGrid');
+            grid.innerHTML = routes.map(route => `
+                <div class="route-card" onclick="selectRoute('${route.from}', '${route.to}')">
+                    <div class="route-image">
+                        <i class="fas fa-bus-alt"></i>
+                    </div>
+                    <div class="route-details">
+                        <div class="route-name">
+                            ${route.from} <i class="fas fa-arrow-right route-arrow"></i> ${route.to}
+                        </div>
+                        <div class="route-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Departure: ${route.time}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-couch"></i>
+                                <span>${route.type}</span>
+                            </div>
+                        </div>
+                        <div class="route-footer">
+                            <div class="route-price">₹${route.price}</div>
+                            <button class="btn-select">Select</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Scroll Routes
+        function scrollRoutes(direction) {
+            const container = document.getElementById('routesContainer');
+            const scrollAmount = 300;
+            container.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Select Route
+        function selectRoute(from, to) {
+            alert(`Selected route: ${from} → ${to}\nRedirecting to bus listing page...`);
+            // In production: window.location.href = `/buses?from=${from}&to=${to}`;
+        }
+
+        // Filter Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                filterRoutes(filter);
+            });
+        });
+
+        function filterRoutes(filter) {
+            // In production, this would filter based on actual offer categories
+            console.log('Filtering by:', filter);
+        }
+
+        // Search Form
+        document.getElementById('searchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            const date = document.getElementById('travelDate').value;
+            
+            if (from && to && date) {
+                alert(`Searching buses from ${from} to ${to} on ${date}`);
+                // In production: window.location.href = `/search-results?from=${from}&to=${to}&date=${date}`;
+            } else {
+                alert('Please fill all search fields');
+            }
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('travelDate');
+        dateInput.min = new Date().toISOString().split('T')[0];
+
+        // Initialize
+        renderRoutes();
+    </script>
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // this code to enable autocomplete feature for city input fields
+        const cities = [
+  "Hyderabad","Bangalore","Chennai","Mumbai","Delhi",
+  "Pune","Goa","Jaipur","Vijayawada","Coimbatore","Chandigarh"
+];
+
+
+function enableAutocomplete(inputId) {
+  const input = document.getElementById(inputId);
+  const box = document.createElement("div");
+  box.className = "autocomplete";
+  input.parentNode.appendChild(box);
+
+  input.addEventListener("input", () => {
+    box.innerHTML = "";
+    if (!input.value) return;
+    cities
+      .filter(c => c.toLowerCase().startsWith(input.value.toLowerCase()))
+      .forEach(city => {
+        const div = document.createElement("div");
+        div.textContent = city;
+        div.onclick = () => {
+          input.value = city;
+          box.innerHTML = "";
+        };
+        box.appendChild(div);
+      });
+  });
+
+  document.addEventListener("click", e => {
+    if (!input.contains(e.target)) box.innerHTML = "";
+  });
+}
+
+enableAutocomplete("fromCity");
+enableAutocomplete("toCity");
+// end of autocomplete code
+
+
+
+
+
+/* =========================
+   ROUTE DATA
+========================= */
+const routes = [
+    { from: 'Hyderabad', to: 'Bangalore', time: '08:00 AM', type: 'AC Sleeper', price: 1200 },
+    { from: 'Bangalore', to: 'Hyderabad', time: '09:30 PM', type: 'AC Seater', price: 1150 },
+    { from: 'Mumbai', to: 'Goa', time: '07:00 PM', type: 'AC Sleeper', price: 1500 },
+    { from: 'Goa', to: 'Mumbai', time: '08:30 PM', type: 'AC Sleeper', price: 1450 },
+    { from: 'Delhi', to: 'Jaipur', time: '06:00 AM', type: 'AC Seater', price: 800 },
+    { from: 'Jaipur', to: 'Delhi', time: '05:30 PM', type: 'AC Seater', price: 750 },
+    { from: 'Chennai', to: 'Bangalore', time: '10:00 PM', type: 'AC Sleeper', price: 900 },
+    { from: 'Bangalore', to: 'Chennai', time: '11:00 PM', type: 'AC Sleeper', price: 950 },
+    { from: 'Pune', to: 'Mumbai', time: '07:30 AM', type: 'AC Seater', price: 450 },
+    { from: 'Mumbai', to: 'Pune', time: '06:00 PM', type: 'AC Seater', price: 500 },
+    { from: 'Hyderabad', to: 'Chennai', time: '09:00 PM', type: 'AC Sleeper', price: 1100 },
+    { from: 'Chennai', to: 'Hyderabad', time: '08:00 PM', type: 'AC Sleeper', price: 1050 },
+    { from: 'Delhi', to: 'Chandigarh', time: '08:00 AM', type: 'AC Seater', price: 600 },
+    { from: 'Bangalore', to: 'Coimbatore', time: '10:30 PM', type: 'AC Sleeper', price: 850 },
+    { from: 'Hyderabad', to: 'Vijayawada', time: '07:00 AM', type: 'AC Seater', price: 650 }
+];
+
+/* =========================
+   RENDER ROUTES
+========================= */
+function renderRoutes() {
+    const grid = document.getElementById('routesGrid');
+
+    grid.innerHTML = routes.map(route => `
+        <div class="route-card">
+            <div class="route-image">
+                <i class="fas fa-bus-alt"></i>
+            </div>
+
+            <div class="route-details">
+                <div class="route-name">
+                    ${route.from}
+                    <i class="fas fa-arrow-right route-arrow"></i>
+                    ${route.to}
+                </div>
+
+                <div class="route-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        ${route.time}
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-couch"></i>
+                        ${route.type}
+                    </div>
+                </div>
+
+                <div class="route-footer">
+                    <div class="route-price">₹${route.price}</div>
+
+                    <!-- THIS IS THE SELECT BUTTON -->
+                    <button class="btn-select"
+                        onclick="goToSeatPage('${route.from}', '${route.to}')">
+                        Select
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+/* =========================
+   REDIRECT TO SEAT PAGE
+========================= */
+function goToSeatPage(from, to) {
+    // Make sure your file name is seat-selection.html
+    window.location.href =
+        `seat-selection.html?from=${from}&to=${to}`;
+}
+
+/* =========================
+   SEARCH FORM
+========================= */
+document.getElementById('searchForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const from = document.getElementById('fromCity').value;
+    const to = document.getElementById('toCity').value;
+    const date = document.getElementById('travelDate').value;
+
+    if (from && to && date) {
+        alert(`Searching buses from ${from} to ${to} on ${date}`);
+    } else {
+        alert('Please fill all search fields');
+    }
+});
+
+/* =========================
+   DATE MIN
+========================= */
+document.getElementById('travelDate').min =
+    new Date().toISOString().split('T')[0];
+
+/* =========================
+   INIT
+========================= */
+renderRoutes();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//         // Route Data
+//         const routes = [
+//             { from: 'Hyderabad', to: 'Bangalore', time: '08:00 AM', type: 'AC Sleeper', price: 1200 },
+//             { from: 'Bangalore', to: 'Hyderabad', time: '09:30 PM', type: 'AC Seater', price: 1150 },
+//             { from: 'Mumbai', to: 'Goa', time: '07:00 PM', type: 'AC Sleeper', price: 1500 },
+//             { from: 'Goa', to: 'Mumbai', time: '08:30 PM', type: 'AC Sleeper', price: 1450 },
+//             { from: 'Delhi', to: 'Jaipur', time: '06:00 AM', type: 'AC Seater', price: 800 },
+//             { from: 'Jaipur', to: 'Delhi', time: '05:30 PM', type: 'AC Seater', price: 750 },
+//             { from: 'Chennai', to: 'Bangalore', time: '10:00 PM', type: 'AC Sleeper', price: 900 },
+//             { from: 'Bangalore', to: 'Chennai', time: '11:00 PM', type: 'AC Sleeper', price: 950 },
+//             { from: 'Pune', to: 'Mumbai', time: '07:30 AM', type: 'AC Seater', price: 450 },
+//             { from: 'Mumbai', to: 'Pune', time: '06:00 PM', type: 'AC Seater', price: 500 },
+//             { from: 'Hyderabad', to: 'Chennai', time: '09:00 PM', type: 'AC Sleeper', price: 1100 },
+//             { from: 'Chennai', to: 'Hyderabad', time: '08:00 PM', type: 'AC Sleeper', price: 1050 },
+//             { from: 'Delhi', to: 'Chandigarh', time: '08:00 AM', type: 'AC Seater', price: 600 },
+//             { from: 'Bangalore', to: 'Coimbatore', time: '10:30 PM', type: 'AC Sleeper', price: 850 },
+//             { from: 'Hyderabad', to: 'Vijayawada', time: '07:00 AM', type: 'AC Seater', price: 650 }
+//         ];
+
+//         // Render Routes
+//         function renderRoutes() {
+//             const grid = document.getElementById('routesGrid');
+//             grid.innerHTML = routes.map(route => `
+//                 <div class="route-card" onclick="selectRoute('${route.from}', '${route.to}')">
+//                     <div class="route-image">
+//                         <i class="fas fa-bus-alt"></i>
+//                     </div>
+//                     <div class="route-details">
+//                         <div class="route-name">
+//                             ${route.from} <i class="fas fa-arrow-right route-arrow"></i> ${route.to}
+//                         </div>
+//                         <div class="route-meta">
+//                             <div class="meta-item">
+//                                 <i class="fas fa-clock"></i>
+//                                 <span>Departure: ${route.time}</span>
+//                             </div>
+//                             <div class="meta-item">
+//                                 <i class="fas fa-couch"></i>
+//                                 <span>${route.type}</span>
+//                             </div>
+//                         </div>
+//                         <div class="route-footer">
+//                             <div class="route-price">₹${route.price}</div>
+//                             <button class="btn-select">Select</button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             `).join('');
+// //             grid.innerHTML = routes.map(route => `
+// //   <div class="route-card">
+// //     <div class="route-image">
+// //       <i class="fas fa-bus-alt"></i>
+// //     </div>
+
+// //     <div class="route-details">
+// //       <div class="route-name">
+// //         ${route.from}
+// //         <i class="fas fa-arrow-right route-arrow"></i>
+// //         ${route.to}
+// //       </div>
+
+// //       <div class="route-meta">
+// //         <div class="meta-item">
+// //           <i class="fas fa-clock"></i>
+// //           <span>${route.time}</span>
+// //         </div>
+// //         <div class="meta-item">
+// //           <i class="fas fa-couch"></i>
+// //           <span>${route.type}</span>
+// //         </div>
+// //       </div>
+
+// //       <div class="route-footer">
+// //         <div class="route-price">₹${route.price}</div>
+// //         <button class="btn-select">Select</button>
+// //       </div>
+// //     </div>
+// //   </div>
+// // `).join('');
+
+//         }
+
+//         // Scroll Routes
+//         function scrollRoutes(direction) {
+//             const container = document.getElementById('routesContainer');
+//             const scrollAmount = 300;
+//             container.scrollBy({
+//                 left: direction === 'left' ? -scrollAmount : scrollAmount,
+//                 behavior: 'smooth'
+//             });
+//         }
+
+//         // Select Route
+//         function selectRoute(from, to) {
+//             alert(`Selected route: ${from} → ${to}\nRedirecting to bus listing page...`);
+//             // In production: window.location.href = `/buses?from=${from}&to=${to}`;
+//         }
+
+//         // Filter Tabs
+//         const tabBtns = document.querySelectorAll('.tab-btn');
+//         tabBtns.forEach(btn => {
+//             btn.addEventListener('click', () => {
+//                 tabBtns.forEach(b => b.classList.remove('active'));
+//                 btn.classList.add('active');
+//                 const filter = btn.dataset.filter;
+//                 filterRoutes(filter);
+//             });
+//         });
+
+//         function filterRoutes(filter) {
+//             // In production, this would filter based on actual offer categories
+//             console.log('Filtering by:', filter);
+//         }
+
+//         // Search Form
+//         document.getElementById('searchForm').addEventListener('submit', (e) => {
+//             e.preventDefault();
+//             const from = document.getElementById('fromCity').value;
+//             const to = document.getElementById('toCity').value;
+//             const date = document.getElementById('travelDate').value;
+            
+//             if (from && to && date) {
+//                 alert(`Searching buses from ${from} to ${to} on ${date}`);
+//                 // In production: window.location.href = `/search-results?from=${from}&to=${to}&date=${date}`;
+//             } else {
+//                 alert('Please fill all search fields');
+//             }
+//         });
+
+//         // Set minimum date to today
+//         const dateInput = document.getElementById('travelDate');
+//         dateInput.min = new Date().toISOString().split('T')[0];
+
+//         // Initialize
+//         renderRoutes();
+//     </script>
+//     <footer>
+//         <div class="container">
+//             <div class="footer-grid">
+//                 <div class="footer-about">
+//                     <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+//                     <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+//                     <div class="social-links">
+//                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+//                         <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+//                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+//                         <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+//                         <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+//                     </div>
+//                 </div>
+//                 <div class="footer-section">
+//                     <h4>Quick Links</h4>
+//                     <ul class="footer-links">
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+//                     </ul>
+//                 </div>
+//                 <div class="footer-section">
+//                     <h4>Support</h4>
+//                     <ul class="footer-links">
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+//                     </ul>
+//                 </div>
+//                 <div class="footer-section">
+//                     <h4>Legal</h4>
+//                     <ul class="footer-links">
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+//                         <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+//                     </ul>
+//                 </div>
+//                 <div class="footer-section">
+//                     <h4>Newsletter</h4>
+//                     <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+//                     <form class="newsletter-form">
+//                         <input type="email" class="newsletter-input" placeholder="Your email">
+//                         <button type="submit" class="newsletter-btn">
+//                             <i class="fas fa-paper-plane"></i>
+//                         </button>
+//                     </form>
+//                 </div>
+//             </div>
+//             <div class="footer-bottom">
+//                 <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+//                 <div class="footer-bottom-links">
+//                     <a href="#">Privacy</a>
+//                     <a href="#">Terms</a>
+//                     <a href="#">Security</a>
+//                     <a href="#">Accessibility</a>
+//                 </div>
+//             </div>
+//         </div>
+//     </footer>
+// </body>
+// </html>

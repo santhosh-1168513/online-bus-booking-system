@@ -499,6 +499,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
@@ -669,11 +670,78 @@
                     <span id="totalAmount">₹0</span>
                 </div>
                 <button class="btn-continue" id="continueBtn" disabled>
-                    Continue to Passenger Details
+                    Continue to pickup & drop points
                 </button>
             </div>
         </aside>
     </div>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3><i class="fas fa-bus-alt"></i> BusBooking</h3>
+                    <p>India's most trusted online bus ticket booking platform. We connect millions of travelers with thousands of bus operators across the country, making travel easy, safe, and affordable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Press</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cookie Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Partner T&C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to get special offers and travel updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #9ca3af;">&copy; 2026 BusBooking. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
 //         // Seat Configuration
@@ -869,6 +937,77 @@
 //         renderSeats();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// In seat-selection.html
+function proceedToPickupDrop() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!user.id) {
+        alert('Please login to continue');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Get selected seats
+    const selectedSeats = Array.from(document.querySelectorAll('.seat.selected'))
+        .map(seat => seat.dataset.seatNumber || seat.textContent.trim());
+    
+    if (selectedSeats.length === 0) {
+        alert('Please select at least one seat');
+        return;
+    }
+
+    // Get booking details
+    const urlParams = new URLSearchParams(window.location.search);
+    const from = urlParams.get('from') || 'Hyderabad';
+    const to = urlParams.get('to') || 'Bangalore';
+    const date = urlParams.get('date') || new Date().toLocaleDateString('en-IN');
+    
+    // Calculate price
+    const pricePerSeat = 600;
+    const baseFare = selectedSeats.length * pricePerSeat;
+    
+    // Save booking data to continue
+    const bookingData = {
+        from,
+        to,
+        date,
+        seats: selectedSeats.join(', '),
+        passengers: selectedSeats.length,
+        pricePerSeat,
+        baseFare
+    };
+    localStorage.setItem('tempBookingData', JSON.stringify(bookingData));
+    
+    // Redirect to pickup-drop page
+    const pickupDropUrl = `pickup-drop.html?` +
+        `from=${encodeURIComponent(from)}&` +
+        `to=${encodeURIComponent(to)}&` +
+        `date=${encodeURIComponent(date)}&` +
+        `seats=${encodeURIComponent(selectedSeats.join(', '))}`;
+    
+    window.location.href = pickupDropUrl;
+}
+
+// Update your button
+document.getElementById('proceedBtn')?.addEventListener('click', proceedToPickupDrop);
 
 
 

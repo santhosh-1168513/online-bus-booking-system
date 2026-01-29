@@ -6,6 +6,7 @@
     <title>Passenger Details - BusBooking</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -32,7 +33,6 @@
             padding-bottom: 100px;
         }
 
-        /* Header */
         .header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -62,7 +62,6 @@
             font-size: 0.9rem;
         }
 
-        /* Progress Steps */
         .progress-section {
             max-width: 1600px;
             margin: 2rem auto;
@@ -141,7 +140,6 @@
             color: var(--dark);
         }
 
-        /* Main Container */
         .main-container {
             max-width: 1600px;
             margin: 2rem auto;
@@ -151,7 +149,6 @@
             gap: 2rem;
         }
 
-        /* Form Section */
         .form-section {
             background: var(--white);
             border-radius: 12px;
@@ -181,7 +178,6 @@
             justify-content: center;
         }
 
-        /* Form Groups */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -224,76 +220,6 @@
             box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
         }
 
-        .form-input.error {
-            border-color: var(--danger);
-        }
-
-        .form-input.success {
-            border-color: var(--success);
-        }
-
-        .error-message {
-            display: none;
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* Gender Radio */
-        .gender-group {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .radio-option input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        /* Passenger Card */
-        .passenger-card {
-            background: var(--light);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .passenger-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .passenger-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        .seat-badge {
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* Toggle Switch */
         .toggle-group {
             display: flex;
             align-items: center;
@@ -348,7 +274,54 @@
             transform: translateX(24px);
         }
 
-        /* Insurance */
+        .passenger-card {
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .passenger-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .passenger-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .seat-badge {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
         .insurance-option {
             border: 2px solid var(--border);
             border-radius: 8px;
@@ -385,7 +358,6 @@
             color: var(--gray);
         }
 
-        /* Journey Summary Panel */
         .summary-panel {
             position: sticky;
             top: 2rem;
@@ -471,7 +443,6 @@
             font-weight: 600;
         }
 
-        /* Fare Breakdown */
         .fare-card {
             background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(59, 130, 246, 0.05));
             border: 2px solid var(--primary-blue);
@@ -512,7 +483,6 @@
             color: var(--success);
         }
 
-        /* Sticky Footer */
         .sticky-footer {
             position: fixed;
             bottom: 0;
@@ -568,43 +538,20 @@
             cursor: not-allowed;
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .main-container {
                 grid-template-columns: 1fr;
             }
-
             .summary-panel {
                 position: static;
             }
-
             .form-row {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .progress-steps {
-                overflow-x: auto;
-            }
-
-            .step-label {
-                display: none;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .btn-payment {
-                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-container">
             <div class="logo">
@@ -617,7 +564,6 @@
         </div>
     </header>
 
-    <!-- Progress Steps -->
     <div class="progress-section">
         <div class="progress-steps">
             <div class="step completed">
@@ -639,11 +585,8 @@
         </div>
     </div>
 
-    <!-- Main Container -->
     <div class="main-container">
-        <!-- Left: Form Section -->
         <div>
-            <!-- Contact Details -->
             <div class="form-section">
                 <h2 class="section-title">
                     <div class="section-icon">
@@ -660,9 +603,7 @@
                             class="form-input" 
                             id="mobile" 
                             placeholder="+91 98765 43210"
-                            required
                         >
-                        <span class="error-message" id="mobileError">Please enter valid mobile number</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email Address <span class="required">*</span></label>
@@ -671,9 +612,7 @@
                             class="form-input" 
                             id="email" 
                             placeholder="your@email.com"
-                            required
                         >
-                        <span class="error-message" id="emailError">Please enter valid email</span>
                     </div>
                 </div>
 
@@ -691,7 +630,6 @@
                 </div>
             </div>
 
-            <!-- Passenger Details -->
             <div class="form-section" style="margin-top: 1.5rem;">
                 <h2 class="section-title">
                     <div class="section-icon">
@@ -700,12 +638,9 @@
                     Passenger Details
                 </h2>
 
-                <div id="passengerForms">
-                    <!-- Dynamically generated passenger forms -->
-                </div>
+                <div id="passengerForms"></div>
             </div>
 
-            <!-- Insurance (Optional) -->
             <div class="form-section" style="margin-top: 1.5rem;">
                 <h2 class="section-title">
                     <div class="section-icon">
@@ -714,9 +649,9 @@
                     Travel Insurance (Optional)
                 </h2>
 
-                <div class="insurance-option" onclick="selectInsurance(this, 0)">
+                <div class="insurance-option selected" onclick="selectInsurance(this, 0)">
                     <div class="insurance-header">
-                        <input type="radio" name="insurance" id="noInsurance">
+                        <input type="radio" name="insurance" id="noInsurance" checked>
                         <label for="noInsurance"><strong>No Insurance</strong></label>
                         <span class="insurance-price">₹0</span>
                     </div>
@@ -749,9 +684,7 @@
             </div>
         </div>
 
-        <!-- Right: Journey Summary -->
         <aside class="summary-panel">
-            <!-- Journey Details -->
             <div class="summary-card">
                 <h3 class="summary-title">Journey Summary</h3>
 
@@ -781,32 +714,28 @@
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Selected Seats</span>
-                    <div class="seat-list">
-                        <span class="seat-chip">L5</span>
-                        <span class="seat-chip">L6</span>
-                    </div>
+                    <div class="seat-list" id="seatList"></div>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Pickup Point</span>
-                    <span class="summary-value">Ameerpet - 21:00</span>
+                    <span class="summary-value" id="pickupDisplay">N/A</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Drop Point</span>
-                    <span class="summary-value">Silk Board - 05:30</span>
+                    <span class="summary-value" id="dropDisplay">N/A</span>
                 </div>
             </div>
 
-            <!-- Fare Breakdown -->
             <div class="fare-card">
                 <h3 class="summary-title">Fare Breakdown</h3>
 
                 <div class="fare-row">
-                    <span>Base Fare (2 seats)</span>
-                    <span id="baseFare">₹2400</span>
+                    <span>Base Fare (<span id="seatCount">0</span> seats)</span>
+                    <span id="baseFare">₹0</span>
                 </div>
                 <div class="fare-row">
                     <span>Taxes & Service Fee</span>
-                    <span id="taxesFee">₹120</span>
+                    <span id="taxesFee">₹0</span>
                 </div>
                 <div class="fare-row" id="insuranceRow" style="display: none;">
                     <span>Travel Insurance</span>
@@ -814,7 +743,7 @@
                 </div>
                 <div class="fare-row total">
                     <span>Total Payable</span>
-                    <span id="totalPayable">₹2520</span>
+                    <span id="totalPayable">₹0</span>
                 </div>
 
                 <div class="trust-badges">
@@ -831,12 +760,11 @@
         </aside>
     </div>
 
-    <!-- Sticky Footer -->
     <div class="sticky-footer">
         <div class="footer-container">
             <div>
                 <div class="total-label">Total Amount</div>
-                <div class="footer-total" id="footerTotal">₹2520</div>
+                <div class="footer-total" id="footerTotal">₹0</div>
             </div>
             <button class="btn-payment" id="paymentBtn" disabled>
                 Continue to Payment <i class="fas fa-arrow-right"></i>
@@ -845,71 +773,87 @@
     </div>
 
 <script>
-console.log('Passenger page JS loaded');
-document.addEventListener('DOMContentLoaded', () => {
 
-  const paymentBtn = document.getElementById('paymentBtn');
-  const totalPayable = document.getElementById('totalPayable');
 
-  if (!paymentBtn) {
-    console.error('paymentBtn not found');
-    return;
-  }
 
-  console.log('paymentBtn found');
 
-  paymentBtn.addEventListener('click', () => {
-    console.log('Payment button clicked');
 
-    if (paymentBtn.disabled) {
-      console.warn('Button disabled');
-      return;
-    }
 
-    const bookingData = {
-      seats: JSON.parse(sessionStorage.getItem('selectedSeats')),
-      pickupPoint: JSON.parse(sessionStorage.getItem('pickupPoint')),
-      dropPoint: JSON.parse(sessionStorage.getItem('dropPoint')),
-      totalAmount: Number(totalPayable.textContent.replace('₹', ''))
+// In payment.html, update loadBookingData() function
+function loadBookingData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    bookingData = {
+        from: urlParams.get('from') || 'Hyderabad',
+        to: urlParams.get('to') || 'Bangalore',
+        date: urlParams.get('date') || new Date().toLocaleDateString('en-IN'),
+        busType: urlParams.get('busType') || 'AC Sleeper',
+        seats: urlParams.get('seats') || 'A1, A2',
+        passengers: urlParams.get('passengers') || '2',
+        baseFare: parseFloat(urlParams.get('baseFare')) || 1200,
+        price: parseFloat(urlParams.get('price')) || 600,
+        pickup: urlParams.get('pickup') || '',  // NEW
+        drop: urlParams.get('drop') || ''       // NEW
     };
 
-    console.log('Saving booking data', bookingData);
+    // Update UI
+    document.getElementById('fromCity').textContent = bookingData.from;
+    document.getElementById('toCity').textContent = bookingData.to;
+    document.getElementById('travelDate').textContent = bookingData.date;
+    document.getElementById('busType').textContent = bookingData.busType;
+    document.getElementById('seatNumbers').textContent = bookingData.seats;
+    document.getElementById('passengerCount').textContent = bookingData.passengers;
+    document.getElementById('seatCount').textContent = bookingData.passengers;
 
-    sessionStorage.setItem('booking_data', JSON.stringify(bookingData));
-    window.location.href = 'payment.html';
-  });
+    // Calculate prices
+    const gst = Math.round(bookingData.baseFare * 0.05);
+    const serviceFee = 40;
+    const total = bookingData.baseFare + gst + serviceFee;
 
-});
+    document.getElementById('baseFare').textContent = `₹${bookingData.baseFare}`;
+    document.getElementById('gst').textContent = `₹${gst}`;
+    document.getElementById('serviceFee').textContent = `₹${serviceFee}`;
+    document.getElementById('totalAmount').textContent = `₹${total}`;
 
-// DOM ELEMENTS
-const paymentBtn = document.getElementById('paymentBtn');
-const baseFare = document.getElementById('baseFare');
-const taxesFee = document.getElementById('taxesFee');
-const totalPayable = document.getElementById('totalPayable');
-const footerTotal = document.getElementById('footerTotal');
-
-
-/* ===============================
-   READ DATA FROM SESSION
-================================ */
-const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats'));
-const pickupPoint = JSON.parse(sessionStorage.getItem('pickupPoint'));
-const dropPoint = JSON.parse(sessionStorage.getItem('dropPoint'));
-
-if (!selectedSeats || selectedSeats.length === 0) {
-    alert('No seats selected.');
-    window.location.href = 'seat-selection.html';
+    bookingData.gst = gst;
+    bookingData.serviceFee = serviceFee;
+    bookingData.total = total;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Read data from session storage
+let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || ['L5', 'L6'];
+let pickupPoint = JSON.parse(sessionStorage.getItem('pickupPoint')) || { name: 'Ameerpet', time: '21:00' };
+let dropPoint = JSON.parse(sessionStorage.getItem('dropPoint')) || { name: 'Silk Board', time: '05:30' };
 
 const seatPrice = 1200;
 let insuranceAmount = 0;
 
-/* ===============================
-   GENERATE PASSENGER FORMS
-================================ */
+// Update seat display
+document.getElementById('seatList').innerHTML = selectedSeats.map(seat => 
+    `<span class="seat-chip">${seat}</span>`
+).join('');
+
+document.getElementById('seatCount').textContent = selectedSeats.length;
+document.getElementById('pickupDisplay').textContent = `${pickupPoint.name} - ${pickupPoint.time}`;
+document.getElementById('dropDisplay').textContent = `${dropPoint.name} - ${dropPoint.time}`;
+
+// Generate passenger forms
 function generatePassengerForms() {
     const container = document.getElementById('passengerForms');
-
     container.innerHTML = selectedSeats.map((seat, index) => `
         <div class="passenger-card">
             <div class="passenger-header">
@@ -919,26 +863,32 @@ function generatePassengerForms() {
 
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Full Name *</label>
-                    <input type="text"
-                           class="form-input passenger-name"
-                           data-index="${index}">
+                    <label class="form-label">Full Name <span class="required">*</span></label>
+                    <input type="text" class="form-input passenger-name" data-index="${index}" placeholder="Enter full name">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Age *</label>
-                    <input type="number"
-                           class="form-input passenger-age"
-                           min="1" max="120"
-                           data-index="${index}">
+                    <label class="form-label">Age <span class="required">*</span></label>
+                    <input type="number" class="form-input passenger-age" data-index="${index}" min="1" max="120" placeholder="Age">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Gender *</label>
-                <label><input type="radio" name="gender${index}" value="Male"> Male</label>
-                <label><input type="radio" name="gender${index}" value="Female"> Female</label>
-                <label><input type="radio" name="gender${index}" value="Other"> Other</label>
+                <label class="form-label">Gender <span class="required">*</span></label>
+                <div class="gender-group">
+                    <label class="radio-option">
+                        <input type="radio" name="gender${index}" value="Male" data-index="${index}">
+                        <span>Male</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="gender${index}" value="Female" data-index="${index}">
+                        <span>Female</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="gender${index}" value="Other" data-index="${index}">
+                        <span>Other</span>
+                    </label>
+                </div>
             </div>
         </div>
     `).join('');
@@ -946,119 +896,155 @@ function generatePassengerForms() {
     attachValidationListeners();
 }
 
-/* ===============================
-   VALIDATION
-================================ */
+// Attach validation listeners
 function attachValidationListeners() {
-    document.querySelectorAll(
-        '#mobile, #email, .passenger-name, .passenger-age, input[type="radio"]'
-    ).forEach(el => {
-        el.addEventListener('input', validateForm);
-        el.addEventListener('change', validateForm);
+    const inputs = document.querySelectorAll('#mobile, #email, .passenger-name, .passenger-age');
+    inputs.forEach(input => {
+        input.addEventListener('input', validateForm);
+        input.addEventListener('blur', validateForm);
+    });
+
+    const radioButtons = document.querySelectorAll('input[type="radio"][name^="gender"]');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', validateForm);
     });
 }
 
+// Validate form
 function validateForm() {
     const mobile = document.getElementById('mobile').value.replace(/\D/g, '');
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (mobile.length !== 10 || !emailRegex.test(email)) {
-        paymentBtn.disabled = true;
+    // Check contact details
+    if (mobile.length !== 10) {
+        document.getElementById('paymentBtn').disabled = true;
         return;
     }
 
+    if (!emailRegex.test(email)) {
+        document.getElementById('paymentBtn').disabled = true;
+        return;
+    }
+
+    // Check each passenger
     for (let i = 0; i < selectedSeats.length; i++) {
         const name = document.querySelector(`.passenger-name[data-index="${i}"]`).value.trim();
-        const age = document.querySelector(`.passenger-age[data-index="${i}"]`).value;
-        const gender = document.querySelector(`input[name="gender${i}"]:checked`);
+        const age = parseInt(document.querySelector(`.passenger-age[data-index="${i}"]`).value);
+        const genderChecked = document.querySelector(`input[name="gender${i}"]:checked`);
 
-        if (!name || !age || !gender) {
-            paymentBtn.disabled = true;
+        if (!name || name.length < 2) {
+            document.getElementById('paymentBtn').disabled = true;
+            return;
+        }
+
+        if (!age || age < 1 || age > 120) {
+            document.getElementById('paymentBtn').disabled = true;
+            return;
+        }
+
+        if (!genderChecked) {
+            document.getElementById('paymentBtn').disabled = true;
             return;
         }
     }
 
-    paymentBtn.disabled = false;
+    // All validations passed
+    document.getElementById('paymentBtn').disabled = false;
 }
 
-/* ===============================
-   JOURNEY SUMMARY (DYNAMIC)
-================================ */
-document.querySelector('.seat-list').innerHTML =
-    selectedSeats.map(seat => `<span class="seat-chip">${seat}</span>`).join('');
-
-document.querySelectorAll('.summary-value')[3].textContent =
-    pickupPoint ? `${pickupPoint.name} - ${pickupPoint.time}` : 'N/A';
-
-document.querySelectorAll('.summary-value')[4].textContent =
-    dropPoint ? `${dropPoint.name} - ${dropPoint.time}` : 'N/A';
-
-/* ===============================
-   FARE CALCULATION
-================================ */
+// Update fare
 function updateFare() {
     const base = selectedSeats.length * seatPrice;
     const tax = Math.round(base * 0.05);
     const total = base + tax + insuranceAmount;
 
-    baseFare.textContent = `₹${base}`;
-    taxesFee.textContent = `₹${tax}`;
-    totalPayable.textContent = `₹${total}`;
-    footerTotal.textContent = `₹${total}`;
+    document.getElementById('baseFare').textContent = `₹${base}`;
+    document.getElementById('taxesFee').textContent = `₹${tax}`;
+    
+    if (insuranceAmount > 0) {
+        document.getElementById('insuranceRow').style.display = 'flex';
+        document.getElementById('insuranceFee').textContent = `₹${insuranceAmount}`;
+    } else {
+        document.getElementById('insuranceRow').style.display = 'none';
+    }
+    
+    document.getElementById('totalPayable').textContent = `₹${total}`;
+    document.getElementById('footerTotal').textContent = `₹${total}`;
 }
 
-/* ===============================
-   INSURANCE
-================================ */
-function selectInsurance(el, amount) {
-    document.querySelectorAll('.insurance-option')
-        .forEach(i => i.classList.remove('selected'));
-
-    el.classList.add('selected');
+// Insurance selection
+function selectInsurance(element, amount) {
+    document.querySelectorAll('.insurance-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    
     insuranceAmount = amount;
     updateFare();
 }
 
-/* ===============================
-   CONTINUE TO PAYMENT
-================================ */
-paymentBtn.addEventListener('click', () => {
-    if (paymentBtn.disabled) return;
+// Continue to payment
+document.getElementById('paymentBtn').addEventListener('click', () => {
+    if (document.getElementById('paymentBtn').disabled) {
+        alert('Please fill all required fields');
+        return;
+    }
 
-    const bookingData = {
-        seats: selectedSeats,
-        pickupPoint,
-        dropPoint,
-        // totalAmount: totalPayable.textContent.replace('₹', '')
-        totalAmount: Number(totalPayable.textContent.replace('₹', ''))
+    // Collect passenger data
+    const passengers = [];
+    for (let i = 0; i < selectedSeats.length; i++) {
+        passengers.push({
+            seat: selectedSeats[i],
+            name: document.querySelector(`.passenger-name[data-index="${i}"]`).value.trim(),
+            age: parseInt(document.querySelector(`.passenger-age[data-index="${i}"]`).value),
+            gender: document.querySelector(`input[name="gender${i}"]:checked`).value
+        });
+    }
 
+    // Collect contact details
+    const contactDetails = {
+        mobile: document.getElementById('mobile').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        whatsappUpdates: document.getElementById('whatsappUpdates').checked
     };
 
+    // Calculate final amount
+    const base = selectedSeats.length * seatPrice;
+    const tax = Math.round(base * 0.05);
+    const totalAmount = base + tax + insuranceAmount;
+
+    // Create booking data
+    const bookingData = {
+        seats: selectedSeats,
+        pickupPoint: pickupPoint,
+        dropPoint: dropPoint,
+        passengers: passengers,
+        contactDetails: contactDetails,
+        insurance: insuranceAmount,
+        baseFare: base,
+        tax: tax,
+        totalAmount: totalAmount,
+        bookingDate: new Date().toISOString()
+    };
+
+    // Save to session storage
     sessionStorage.setItem('booking_data', JSON.stringify(bookingData));
+
+    console.log('Booking Data:', bookingData);
+
+    // Redirect to payment page
     window.location.href = 'payment.html';
 });
 
-/* ===============================
-   INIT
-================================ */
+// Initialize
 generatePassengerForms();
 updateFare();
-selectInsurance(document.querySelector('.insurance-option'), 0);
-// Prevent form submission on Enter
-paymentBtn.addEventListener('click', () => {
-    if (paymentBtn.disabled) return;
 
-    const bookingData = {
-        seats: selectedSeats,
-        pickupPoint,
-        dropPoint,
-        totalAmount: Number(totalPayable.textContent.replace('₹', ''))
-    };
-
-    sessionStorage.setItem('booking_data', JSON.stringify(bookingData));
-    window.location.href = 'payment.html';
-});
+// Log for debugging
+console.log('Selected Seats:', selectedSeats);
+console.log('Pickup Point:', pickupPoint);
+console.log('Drop Point:', dropPoint);
 
 </script>
 
